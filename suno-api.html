@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suno API — lmfd104</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font-family: system-ui, sans-serif;
+           background: #141820; color: #e0e0e8; padding: 2rem 1rem; }
+    .wrap { max-width: 760px; margin: 0 auto; }
+    h1 { color: #b07cff; margin: 0 0 .25rem; }
+    .sub { color: #888; margin: 0 0 2rem; font-size: .95rem; }
+    h2 { color: #f5c33b; border-bottom: 1px solid #2a2a3a; padding-bottom: .4rem; }
+    .endpoint { background: #1c2030; border: 1px solid #2a2a3a; border-radius: 8px;
+                padding: 1rem 1.2rem; margin-bottom: 1rem; }
+    .method { display: inline-block; background: #b07cff22; color: #b07cff;
+              border: 1px solid #b07cff55; border-radius: 4px; padding: .1rem .5rem;
+              font-size: .8rem; font-weight: 700; letter-spacing: .05em; margin-right: .6rem; }
+    .method.get { background: #33aa6622; color: #5ec97e; border-color: #33aa6655; }
+    .path { font-family: monospace; font-size: 1rem; color: #eee; }
+    .desc { margin: .4rem 0 0; color: #999; font-size: .9rem; }
+    pre { background: #0e1018; border: 1px solid #2a2a3a; border-radius: 6px;
+          padding: .9rem 1.1rem; overflow-x: auto; font-size: .85rem;
+          color: #c8d0e8; margin: .6rem 0 0; }
+    .note { background: #2a2010; border-left: 3px solid #f5c33b;
+            padding: .7rem 1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+            color: #ccc; font-size: .9rem; }
+    a { color: #b07cff; }
+    .badge { display: inline-block; background: #1c2030; border: 1px solid #2a2a3a;
+             border-radius: 20px; padding: .25rem .75rem; font-size: .8rem; color: #888;
+             margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Suno API</h1>
+    <p class="sub">Local server — powered by <a href="https://github.com/gcui-art/suno-api" target="_blank">gcui-art/suno-api</a></p>
+    <span class="badge">Base URL: http://localhost:3000</span>
+
+    <div class="note">
+      This server runs locally only. Start it with <code>npm run start</code> from <code>C:\Users\lmfd1\suno-api</code>.
+      No auth header required for local calls.
+    </div>
+
+    <h2>Endpoints</h2>
+
+    <div class="endpoint">
+      <span class="method">POST</span><span class="path">/api/generate</span>
+      <p class="desc">Generate music from a text description. Returns immediately with a task ID — poll <code>/api/get</code> for the result.</p>
+      <pre>{
+  "prompt": "an upbeat indie pop song about summer",
+  "make_instrumental": false,
+  "wait_audio": false
+}</pre>
+    </div>
+
+    <div class="endpoint">
+      <span class="method">POST</span><span class="path">/api/custom_generate</span>
+      <p class="desc">Custom mode — supply your own lyrics, style tags, and title.</p>
+      <pre>{
+  "prompt": "verse 1\nHello world\n\nchorus\nThis is my song",
+  "tags": "pop upbeat female vocalist",
+  "title": "My Song",
+  "make_instrumental": false,
+  "wait_audio": false
+}</pre>
+    </div>
+
+    <div class="endpoint">
+      <span class="method get">GET</span><span class="path">/api/get?ids=&lt;id&gt;,&lt;id&gt;</span>
+      <p class="desc">Poll for completed tracks. When <code>status</code> is <code>"complete"</code>, <code>audio_url</code> and <code>image_url</code> are populated.</p>
+      <pre>{
+  "id": "abc123",
+  "status": "complete",
+  "audio_url": "https://cdn.suno.ai/...",
+  "image_url": "https://cdn.suno.ai/...",
+  "title": "My Song",
+  "duration": 180
+}</pre>
+    </div>
+
+    <div class="endpoint">
+      <span class="method">POST</span><span class="path">/api/extend_audio</span>
+      <p class="desc">Extend an existing track. Pass the clip ID and a continuation prompt.</p>
+      <pre>{
+  "audio_id": "abc123",
+  "prompt": "bridge section, slower tempo",
+  "continue_at": 120
+}</pre>
+    </div>
+
+    <div class="endpoint">
+      <span class="method">POST</span><span class="path">/api/generate_lyrics</span>
+      <p class="desc">Generate lyrics only (no audio).</p>
+      <pre>{ "prompt": "a birthday song for a 5-year-old" }</pre>
+    </div>
+
+    <div class="endpoint">
+      <span class="method get">GET</span><span class="path">/api/get_limit</span>
+      <p class="desc">Check remaining credits for the month.</p>
+      <pre>{
+  "credits_left": 2470,
+  "period": "month",
+  "monthly_limit": 2500,
+  "monthly_usage": 30
+}</pre>
+    </div>
+
+    <h2>Typical flow</h2>
+    <pre>1. POST /api/generate  →  { id: "abc123", status: "submitted" }
+2. GET  /api/get?ids=abc123  →  { status: "processing" }   ← repeat every 5s
+3. GET  /api/get?ids=abc123  →  { status: "complete", audio_url: "..." }
+4. Download audio_url</pre>
+
+    <p style="margin-top:2rem;color:#555;font-size:.8rem;">
+      <a href="/">← back</a> &nbsp;·&nbsp; Logs: <code>C:\Users\lmfd1\suno-api\server.log</code>
+    </p>
+  </div>
+</body>
+</html>

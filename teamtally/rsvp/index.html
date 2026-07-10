@@ -49,7 +49,8 @@
 </head>
 <body>
 <div id="app"><div class="card"><div class="spinner">Loading invite…</div></div></div>
-<footer id="footer">Powered by <a href="https://play.google.com/store/apps/details?id=com.flagstatspro">TeamTally</a></footer>
+<footer id="footer">Powered by <a href="https://play.google.com/store/apps/details?id=com.flagstatspro">TeamTally</a>
+  <span id="openapp" hidden> · <a href="#">Open in the app</a></span></footer>
 <script>
 (function () {
   "use strict";
@@ -187,6 +188,12 @@
   }
 
   if (!UUID_RE.test(token)) { showUnavailable(); return; }
+  // Installed users can hop into the native RSVP screen (teamtally:// deep link).
+  var openApp = document.getElementById("openapp");
+  if (openApp) {
+    openApp.querySelector("a").setAttribute("href", "teamtally://rsvp/" + encodeURIComponent(token));
+    openApp.hidden = false;
+  }
   fetch(API + "?e=" + encodeURIComponent(token))
     .then(function (r) {
       if (!r.ok) throw new Error("http " + r.status);

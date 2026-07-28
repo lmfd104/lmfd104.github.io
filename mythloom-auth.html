@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <title>Email Confirmation — Mythloom</title>
+  <style>
+    body { font-family: Georgia, serif; max-width: 560px; margin: 48px auto; padding: 0 24px; color: #1a1a1a; line-height: 1.7; }
+    h1 { font-size: 1.6em; margin-bottom: 4px; }
+    .sub { color: #555; font-size: 0.95em; margin-bottom: 32px; }
+    .card { border-radius: 8px; padding: 20px 22px; margin: 28px 0; }
+    .ok { background: #f1f8f1; border-left: 4px solid #3d7a3d; }
+    .bad { background: #fdf3f0; border-left: 4px solid #b0533d; }
+    .wait { background: #f5f0ff; border-left: 4px solid #6b4bb0; }
+    .card h2 { font-size: 1.15em; margin: 0 0 8px; }
+    .card p { margin: 8px 0 0; }
+    ol { padding-left: 1.4em; }
+    a { color: #6b4bb0; }
+    footer { margin-top: 40px; font-size: 0.9em; color: #666; border-top: 1px solid #ddd; padding-top: 16px; }
+  </style>
+</head>
+<body>
+<h1>Mythloom</h1>
+<p class="sub">Email confirmation</p>
+
+<div id="status" class="card wait">
+  <h2>Checking your link…</h2>
+  <p>One moment.</p>
+</div>
+
+<div id="next" hidden>
+  <h2 style="font-size:1.05em;">What to do next</h2>
+  <ol id="steps"></ol>
+</div>
+
+<footer>
+  Need help? Email <a href="mailto:lmfd104@gmail.com">lmfd104@gmail.com</a> &nbsp;·&nbsp;
+  <a href="mythloom-support.html">Mythloom support</a>
+</footer>
+
+<script>
+// Supabase appends the outcome to the URL fragment. Read it locally, show a result,
+// then strip the fragment so no auth token lingers in the address bar or in anything
+// the reader might copy/share. Nothing here is ever sent anywhere.
+(function () {
+  // Supabase's implicit flow returns the outcome in the fragment; the PKCE flow
+  // returns ?code= in the query. Check both so a success is never misread as "nothing
+  // to confirm" if the project's flow type changes.
+  var frag = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+  var query = new URLSearchParams(location.search || '');
+  var errorCode = frag.get('error_code') || frag.get('error') ||
+                  query.get('error_code') || query.get('error');
+  var confirmed = frag.has('access_token') || frag.has('type') || query.has('code');
+
+  if (location.hash || location.search) {
+    history.replaceState(null, '', location.pathname);
+  }
+
+  var status = document.getElementById('status');
+  var next = document.getElementById('next');
+  var steps = document.getElementById('steps');
+
+  function render(cls, heading, detail, stepList) {
+    status.className = 'card ' + cls;
+    status.innerHTML = '';
+    var h = document.createElement('h2');
+    h.textContent = heading;
+    var p = document.createElement('p');
+    p.textContent = detail;
+    status.appendChild(h);
+    status.appendChild(p);
+    stepList.forEach(function (text) {
+      var li = document.createElement('li');
+      li.textContent = text;
+      steps.appendChild(li);
+    });
+    next.hidden = false;
+  }
+
+  if (errorCode) {
+    var expired = /expired/i.test(errorCode);
+    render(
+      'bad',
+      expired ? 'This link has expired' : 'This link is no longer valid',
+      expired
+        ? 'Confirmation links are single-use and expire after one hour. Some email apps also open links automatically to scan them, which uses the link up before you tap it.'
+        : 'The link could not be verified. It may already have been used.',
+      [
+        'Reopen Mythloom on your phone.',
+        'Tap Go Pro, then Send link again to get a fresh email.',
+        'Open the new email on the same phone and tap the link within the hour.'
+      ]
+    );
+    return;
+  }
+
+  if (confirmed) {
+    render(
+      'ok',
+      'Email confirmed',
+      'Your email address is now linked to your Mythloom account. You can close this page.',
+      [
+        'Return to Mythloom on your phone.',
+        'Tap "I’ve tapped the link" in the app.',
+        'Your purchase will continue from there.'
+      ]
+    );
+    return;
+  }
+
+  render(
+    'wait',
+    'Nothing to confirm here',
+    'This page confirms a Mythloom email link. Open it from the link in your confirmation email.',
+    [
+      'Open Mythloom on your phone.',
+      'Tap Go Pro, then Send link to receive a confirmation email.',
+      'Tap the link in that email on the same phone.'
+    ]
+  );
+})();
+</script>
+</body>
+</html>

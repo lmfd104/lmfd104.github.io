@@ -8,95 +8,167 @@
 <link rel="canonical" href="https://lmfd104.github.io/mythloom/">
 <meta property="og:title" content="Mythloom — AI Game Master RPG">
 <meta property="og:description" content="A living text RPG with real dice, secret moves, and a GM that remembers. Your whole party plays free.">
+<meta property="og:image" content="https://lmfd104.github.io/mythloom/img/hero.jpg">
 <meta property="og:type" content="website">
 <style>
-  :root { --bg:#0a0e2a; --panel:#141833; --ink:#e8e2d0; --dim:#a9a294; --gold:#d4af5a; --goldbright:#f0cd7a; }
+  :root { --bg:#0a0e2a; --panel:#141833; --line:#2c3157; --ink:#e8e2d0; --dim:#a9a294;
+          --gold:#d4af5a; --goldbright:#f0cd7a; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--ink); font-family:Georgia,'Times New Roman',serif; line-height:1.65; }
-  .wrap { max-width:760px; margin:0 auto; padding:48px 24px 80px; }
   h1,h2,h3 { font-variant:small-caps; letter-spacing:.06em; color:var(--gold); font-weight:600; }
-  h1 { font-size:2.4rem; line-height:1.2; }
-  h2 { font-size:1.35rem; margin:2.4em 0 .6em; }
+  a { color:var(--goldbright); }
   p { margin:.9em 0; }
-  .tag { color:var(--dim); font-style:italic; font-size:1.15rem; }
-  .rule { border:0; border-top:1px solid #2c3157; margin:2em 0; position:relative; }
-  .cta { display:inline-block; background:linear-gradient(#f0cd7a,#c99b3f); color:#241c08; font-family:inherit;
-         font-variant:small-caps; letter-spacing:.08em; font-size:1.1rem; padding:.7em 1.6em; border-radius:8px;
-         text-decoration:none; margin:.4em .6em .4em 0; }
-  .cta.ghost { background:none; border:1px solid var(--gold); color:var(--gold); }
+  .wrap { max-width:860px; margin:0 auto; padding:0 24px; }
+
+  /* Hero */
+  .hero { position:relative; background:url('img/hero.jpg') center 30%/cover no-repeat; text-align:center; }
+  .hero::after { content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,14,42,.25) 0%, rgba(10,14,42,.55) 55%, var(--bg) 100%); }
+  .hero > div { position:relative; z-index:1; padding:110px 24px 130px; }
+  .hero h1 { font-size:3rem; letter-spacing:.22em; color:var(--goldbright);
+             text-shadow:0 2px 18px rgba(0,0,0,.85), 0 0 40px rgba(212,175,90,.35); }
+  .hero .tag { color:#f2ecd9; font-style:italic; font-size:1.25rem; text-shadow:0 1px 10px rgba(0,0,0,.9); }
+  .cta { display:inline-block; background:linear-gradient(#f0cd7a,#c99b3f); color:#241c08;
+         font-family:inherit; font-variant:small-caps; letter-spacing:.08em; font-size:1.1rem;
+         padding:.7em 1.6em; border-radius:8px; text-decoration:none; margin:.5em .5em 0 0;
+         box-shadow:0 4px 18px rgba(0,0,0,.5); }
+  .cta.ghost { background:rgba(10,14,42,.55); border:1px solid var(--gold); color:var(--goldbright); }
+  .small { color:var(--dim); font-size:.85rem; }
+  .hero .small { color:#cfc8b4; text-shadow:0 1px 8px rgba(0,0,0,.9); }
+
+  /* Sections */
+  section { padding:56px 0; }
+  h2 { font-size:1.5rem; margin-bottom:.5em; text-align:center; }
+  .lead { text-align:center; max-width:640px; margin:0 auto 1.5em; }
+
+  /* Screenshot rows */
+  .shots { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:1.6em; }
+  figure.shot { width:236px; }
+  figure.shot img { width:100%; display:block; border:1px solid var(--line); border-radius:18px;
+    box-shadow:0 10px 34px rgba(0,0,0,.55); }
+  figure.shot figcaption { font-size:.85rem; color:var(--dim); text-align:center; padding:.6em .3em 0; }
+
+  /* Art interludes */
+  .band { position:relative; background-size:cover; background-position:center; min-height:280px;
+          display:flex; align-items:center; justify-content:center; text-align:center; }
+  .band::after { content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, var(--bg) 0%, rgba(10,14,42,.25) 30%, rgba(10,14,42,.35) 70%, var(--bg) 100%); }
+  .band blockquote { position:relative; z-index:1; max-width:620px; padding:0 24px;
+    font-style:italic; font-size:1.35rem; color:#f4eeda; text-shadow:0 2px 14px rgba(0,0,0,.95); }
+  .band .attr { display:block; margin-top:.6em; font-style:normal; font-size:.85rem; color:#d8d0ba; }
+
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px 26px; }
+  .cols { display:flex; gap:24px; flex-wrap:wrap; justify-content:center; }
+  .cols .panel { flex:1 1 240px; max-width:380px; }
+  .panel h3 { font-size:1.05rem; margin-bottom:.4em; }
+  .panel p { margin:.4em 0; font-size:.95rem; }
   ul { margin:.6em 0 .9em 1.2em; }
   li { margin:.35em 0; }
-  .panel { background:var(--panel); border:1px solid #2c3157; border-radius:12px; padding:20px 24px; margin:1.2em 0; }
-  .hook { font-style:italic; color:var(--goldbright); }
-  a { color:var(--goldbright); }
-  footer { margin-top:4em; color:var(--dim); font-size:.85rem; }
-  .small { color:var(--dim); font-size:.85rem; }
+  .center { text-align:center; }
+  footer { padding:40px 24px 60px; color:var(--dim); font-size:.85rem; text-align:center; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Mythloom</h1>
-  <p class="tag">Weave your legend together. An AI Game Master runs the table — you and your friends run the story.</p>
 
-  <p style="margin-top:1.6em">
-    <a class="cta" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Get it on Google Play</a>
-    <a class="cta ghost" href="https://lmfd104.github.io/discord/mythloom">Join the Discord</a>
-  </p>
-  <p class="small">Free to play · iOS coming soon</p>
-
-  <hr class="rule">
-
-  <h2>One subscription covers the whole table</h2>
-  <p>Mythloom is free to play, solo or multiplayer. Upgrade one host to Pro (<strong>$9.99/mo or $99.99/yr</strong>) and the
-  <strong>entire party — up to five adventurers — plays the sharper Game Master free.</strong>
-  Every other AI RPG charges each player separately.</p>
-
-  <h2>A Game Master that remembers</h2>
-  <div class="panel">
-    <ul>
-      <li><strong>Entity memory</strong> — NPCs keep their names, grudges, and promises across dozens of turns.</li>
-      <li><strong>Open plot threads</strong> — the GM tracks the promises its own story has made, so a hook planted in turn 3 pays off in turn 20.</li>
-      <li><strong>World memory</strong> — the world remembers your party's deeds <em>across campaigns</em>.</li>
-      <li><strong>Every turn ends on a cliffhanger</strong> — and that open question greets you when you come back.</li>
-    </ul>
+<header class="hero">
+  <div>
+    <h1>MYTHLOOM</h1>
+    <p class="tag">Weave your legend together.<br>An AI Game Master runs the table — you and your friends run the story.</p>
+    <p style="margin-top:1.6em">
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Get it on Google Play</a>
+      <a class="cta ghost" href="https://lmfd104.github.io/discord/mythloom">Join the Discord</a>
+    </p>
+    <p class="small">Free to play · one Pro host covers the whole party · iOS coming soon</p>
   </div>
-  <p class="hook">“Will Brannock step into the line the Guild and Wardens are both dancing around?”<br>
-  <span class="small">— an actual turn-ending hook from a live campaign</span></p>
+</header>
 
-  <h2>Secret moves</h2>
-  <p>Whisper an action the rest of the party can’t see. The shared story never gives you away — the consequences
-  surface later, in the fiction, where they belong. No other AI game master does per-player secrets in multiplayer.</p>
+<section>
+  <div class="wrap">
+    <h2>Every turn ends on a question you can't leave alone</h2>
+    <p class="lead">Real dice. A living story. And a cliffhanger waiting on your home screen when you come back.</p>
+    <div class="shots">
+      <figure class="shot"><img src="img/shot-dice.jpg" alt="The d20 ritual: roll 7 + 6 = 13 against difficulty 13 — Success" loading="lazy">
+        <figcaption>A deterministic engine rolls every die — the GM never fudges.</figcaption></figure>
+      <figure class="shot"><img src="img/shot-hook.jpg" alt="Session feed ending on the hook card: 'Do you slip deeper into the darkness, or slip back out before you're spotted?'" loading="lazy">
+        <figcaption>“The story turns…” — every turn closes on an open question.</figcaption></figure>
+      <figure class="shot"><img src="img/shot-continue.jpg" alt="Home screen: YOUR MOVE badge, the campaign's open question, resolves in 47 h" loading="lazy">
+        <figcaption>That question greets you on the home screen. Your move.</figcaption></figure>
+    </div>
+  </div>
+</section>
 
-  <h2>Real dice, honest math</h2>
-  <p>A deterministic engine rolls every d20 and applies every rule — the AI narrates, it never fudges. Spend
-  <strong>Fate</strong> to reroll a failure at the worst moment; earn <strong>Influence</strong> by letting others lead.</p>
-
-  <h2>Built for real groups</h2>
-  <ul>
-    <li>Parties of 1–5 with a six-letter invite code — friends drop straight in.</li>
-    <li><strong>Async turns</strong>: play at lunch, on the bus, whenever. Live pacing when everyone's around.</li>
-    <li>The GM speaks its narration aloud — or reads silently. Hands-free voice mode included.</li>
-    <li>Narration in <strong>English or German</strong> — your party picks.</li>
-    <li>Two worlds at launch: <em>Emberfall</em> (dark fantasy) and <em>Drift Sector</em> (salvage-crew sci-fi).</li>
-  </ul>
-
-  <h2>Comparisons</h2>
-  <p>Coming from another AI RPG? See how Mythloom stacks up:</p>
-  <ul>
-    <li><a href="everweave-alternative.html">Mythloom vs. Everweave</a></li>
-    <li><a href="ai-dungeon-alternative.html">Looking for an AI Dungeon alternative?</a></li>
-  </ul>
-
-  <p style="margin-top:2em">
-    <a class="cta" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Play free on Android</a>
-  </p>
-
-  <footer>
-    <p>Story narration in Mythloom is AI-generated, held to a PG-13 ceiling; dice and rules are computed by a
-    deterministic engine, not the AI. Requires an internet connection.</p>
-    <p><a href="../mythloom-privacy.html">Privacy</a> · <a href="../mythloom-support.html">Support</a> ·
-    <a href="https://lmfd104.github.io/discord/mythloom">Discord</a></p>
-  </footer>
+<div class="band" style="background-image:url('img/band-emberfall.jpg')">
+  <blockquote>“Do you slip deeper into the darkness, or slip back out before you're spotted?”
+    <span class="attr">— an actual turn-ending hook, written live by the Game Master</span></blockquote>
 </div>
+
+<section>
+  <div class="wrap">
+    <h2>One subscription covers the table</h2>
+    <p class="lead">Mythloom is free to play, solo or multiplayer. Upgrade one host to Pro
+    (<strong>$9.99/mo or $99.99/yr</strong>) and the <strong>whole party — up to five adventurers —
+    plays the sharper Game Master free.</strong> Every other AI RPG charges each player separately.</p>
+    <div class="cols">
+      <div class="panel"><h3>A GM that remembers</h3>
+        <p>NPCs keep their names, grudges and promises. The GM tracks its own open plot threads,
+        so a hook planted in turn 3 pays off in turn 20 — and the world remembers your party
+        <em>across campaigns</em>.</p></div>
+      <div class="panel"><h3>Secret moves</h3>
+        <p>Whisper an action the rest of the party can't see. The shared story never gives you
+        away — the consequences surface later, in the fiction, where they belong.</p></div>
+      <div class="panel"><h3>Built for real groups</h3>
+        <p>Parties of 1–5 with a six-letter code. Async turns — play at lunch, on the bus — or
+        live pacing at a real table. Spoken narration in English or German.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="band" style="background-image:url('img/band-ruin.jpg')">
+  <blockquote>“The mechanisms inside click and tumble like they've been waiting for you.”
+    <span class="attr">— Emberfall: swords, embers and old roads</span></blockquote>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Forge a real hero, then step through</h2>
+    <p class="lead">Quick Forge builds a ready-made hero in one tap — or take the eight-step path:
+    Lineage, Calling, Origin, Talents, a face, a goal, a vow.</p>
+    <div class="shots">
+      <figure class="shot"><img src="img/shot-forge.jpg" alt="Forge Your Hero: Vex the Duelist — pronouns, heritage, goal and vow" loading="lazy">
+        <figcaption>Vex — “One last big take, then a quiet life nobody can steal.”</figcaption></figure>
+      <figure class="shot"><img src="img/shot-begin.jpg" alt="The Drowned Bell: the threads are strung — Begin the Adventure" loading="lazy">
+        <figcaption>Your gear lands in the satchel. The loom is still. Begin.</figcaption></figure>
+      <figure class="shot"><img src="img/shot-home.jpg" alt="Mythloom home screen with candlelit map, logo, and Play Solo" loading="lazy">
+        <figcaption>Solo in one tap, or share a code and bring the party.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="band" style="background-image:url('img/band-drift.jpg')">
+  <blockquote>Fantasy tonight. A derelict salvage ship tomorrow.
+    <span class="attr">— Drift Sector: salvage crews on the edge of space</span></blockquote>
+</div>
+
+<section>
+  <div class="wrap center">
+    <h2>Coming from another AI RPG?</h2>
+    <p class="lead">Honest comparisons, updated as of August 2026:</p>
+    <p>
+      <a class="cta ghost" href="everweave-alternative.html">Mythloom vs. Everweave</a>
+      <a class="cta ghost" href="ai-dungeon-alternative.html">An AI Dungeon alternative</a>
+    </p>
+    <p style="margin-top:2.2em">
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Play free on Android</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>Screenshots are real gameplay from a live campaign. Story narration in Mythloom is AI-generated,
+  held to a PG-13 ceiling; dice and rules are computed by a deterministic engine, not the AI.
+  Requires an internet connection.</p>
+  <p><a href="../mythloom-privacy.html">Privacy</a> · <a href="../mythloom-support.html">Support</a> ·
+  <a href="https://lmfd104.github.io/discord/mythloom">Discord</a></p>
+</footer>
 </body>
 </html>

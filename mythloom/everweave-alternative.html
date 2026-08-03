@@ -6,79 +6,109 @@
 <title>Mythloom vs. Everweave — an Everweave alternative where your party plays free</title>
 <meta name="description" content="Comparing Mythloom and Everweave: pricing per table vs per player, structured GM memory, secret moves, real multiplayer with async turns, and German narration.">
 <link rel="canonical" href="https://lmfd104.github.io/mythloom/everweave-alternative.html">
+<meta property="og:image" content="https://lmfd104.github.io/mythloom/img/hero.jpg">
 <style>
-  :root { --bg:#0a0e2a; --panel:#141833; --ink:#e8e2d0; --dim:#a9a294; --gold:#d4af5a; --goldbright:#f0cd7a; }
+  :root { --bg:#0a0e2a; --panel:#141833; --line:#2c3157; --ink:#e8e2d0; --dim:#a9a294;
+          --gold:#d4af5a; --goldbright:#f0cd7a; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--ink); font-family:Georgia,'Times New Roman',serif; line-height:1.65; }
-  .wrap { max-width:760px; margin:0 auto; padding:48px 24px 80px; }
   h1,h2 { font-variant:small-caps; letter-spacing:.06em; color:var(--gold); font-weight:600; }
-  h1 { font-size:1.9rem; line-height:1.25; }
-  h2 { font-size:1.3rem; margin:2.2em 0 .6em; }
-  p { margin:.9em 0; }
-  .cta { display:inline-block; background:linear-gradient(#f0cd7a,#c99b3f); color:#241c08;
-         font-variant:small-caps; letter-spacing:.08em; font-size:1.05rem; padding:.65em 1.5em; border-radius:8px;
-         text-decoration:none; margin:.4em .6em .4em 0; }
   a { color:var(--goldbright); }
-  .tablewrap { overflow-x:auto; }
-  table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.95rem; }
-  th,td { border:1px solid #2c3157; padding:.55em .8em; text-align:left; vertical-align:top; }
+  p { margin:.9em 0; }
+  .wrap { max-width:820px; margin:0 auto; padding:0 24px; }
+  .hero { position:relative; background:url('img/band-emberfall.jpg') center/cover no-repeat; text-align:center; }
+  .hero::after { content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,14,42,.45) 0%, rgba(10,14,42,.6) 60%, var(--bg) 100%); }
+  .hero > div { position:relative; z-index:1; padding:70px 24px 84px; }
+  .hero h1 { font-size:2rem; color:var(--goldbright); text-shadow:0 2px 16px rgba(0,0,0,.9); }
+  .hero p { color:#e9e2cd; text-shadow:0 1px 8px rgba(0,0,0,.9); max-width:620px; margin:1em auto 0; }
+  .crumb { position:relative; z-index:1; text-align:left; padding:16px 24px 0; }
+  .crumb a { color:#d8d0ba; font-size:.9rem; text-decoration:none; text-shadow:0 1px 6px rgba(0,0,0,.9); }
+  section { padding:48px 0; }
+  .cta { display:inline-block; background:linear-gradient(#f0cd7a,#c99b3f); color:#241c08;
+         font-variant:small-caps; letter-spacing:.08em; font-size:1.05rem; padding:.65em 1.5em;
+         border-radius:8px; text-decoration:none; margin:.4em .6em .4em 0; box-shadow:0 4px 18px rgba(0,0,0,.5); }
+  .tablewrap { overflow-x:auto; margin:1.2em 0; }
+  table { border-collapse:collapse; width:100%; font-size:.95rem; }
+  th,td { border:1px solid var(--line); padding:.55em .8em; text-align:left; vertical-align:top; }
   th { color:var(--gold); font-variant:small-caps; background:var(--panel); }
   .small { color:var(--dim); font-size:.85rem; }
-  footer { margin-top:4em; color:var(--dim); font-size:.85rem; }
+  .shots { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin:1.6em 0 .4em; }
+  figure.shot { width:236px; }
+  figure.shot img { width:100%; display:block; border:1px solid var(--line); border-radius:18px;
+    box-shadow:0 10px 34px rgba(0,0,0,.55); }
+  figure.shot figcaption { font-size:.85rem; color:var(--dim); text-align:center; padding:.6em .3em 0; }
+  h2 { font-size:1.3rem; margin:1.6em 0 .5em; }
+  footer { padding:36px 24px 56px; color:var(--dim); font-size:.85rem; text-align:center; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <p class="small"><a href="index.html">← Mythloom</a></p>
-  <h1>Mythloom vs. Everweave</h1>
-  <p>Everweave is a fine AI Dungeon Master — it helped prove people want this genre on a phone. Mythloom
-  is built by a solo developer around the things that genre's players ask for most: memory that holds,
-  a whole table on one subscription, and multiplayer that's actually designed for friends.</p>
 
-  <div class="tablewrap">
-  <table>
-    <tr><th></th><th>Mythloom</th><th>Everweave</th></tr>
-    <tr><td><strong>Who pays</strong></td>
-        <td>One Pro host — <strong>up to 5 players share it free</strong> ($9.99/mo · $99.99/yr)</td>
-        <td>Per-account message packs ($5.99–$17.99/mo tiers)*</td></tr>
-    <tr><td><strong>Free tier</strong></td>
-        <td>20 GM turns/week, full game, solo or multiplayer</td>
-        <td>~60 free messages/month*</td></tr>
-    <tr><td><strong>GM memory</strong></td>
-        <td>Structured: NPC entity cards + tracked plot threads + cross-campaign world memory</td>
-        <td>Rolling context (players report long-campaign memory slips)</td></tr>
-    <tr><td><strong>Multiplayer</strong></td>
-        <td>Parties of 1–5, async or live turns, per-player <strong>secret moves</strong></td>
-        <td>Primarily solo-focused sessions</td></tr>
-    <tr><td><strong>Dice & rules</strong></td>
-        <td>Deterministic server engine — the AI never invents a roll</td>
-        <td>AI-adjudicated</td></tr>
-    <tr><td><strong>Languages</strong></td>
-        <td>GM narrates in English or German</td>
-        <td>English</td></tr>
-    <tr><td><strong>Voice</strong></td>
-        <td>Spoken narration + hands-free voice input</td>
-        <td>Text-first</td></tr>
-  </table>
+<header class="hero">
+  <div class="crumb"><a href="index.html">← Mythloom</a></div>
+  <div>
+    <h1>Mythloom vs. Everweave</h1>
+    <p>Everweave helped prove people want an AI Dungeon Master on a phone. Mythloom is built
+    around what that genre's players ask for most: memory that holds, one subscription for the
+    whole table, and multiplayer designed for friends.</p>
   </div>
-  <p class="small">*Competitor pricing and limits as published in third-party comparisons, August 2026 —
-  check <a href="https://everweave.ai" rel="nofollow">everweave.ai</a> for current terms. Corrections welcome via
-  <a href="https://lmfd104.github.io/discord/mythloom">our Discord</a>.</p>
+</header>
 
-  <h2>The short version</h2>
-  <p>If you mostly play alone and love Everweave's flavor, it remains a good app. If you want to bring
-  <em>friends</em> — one subscription for the whole table, secrets between players, turns that resolve on
-  everyone's own schedule, and a GM whose memory is a database rather than a fading context window —
-  that's the table Mythloom set.</p>
+<section>
+  <div class="wrap">
+    <div class="tablewrap">
+    <table>
+      <tr><th></th><th>Mythloom</th><th>Everweave</th></tr>
+      <tr><td><strong>Who pays</strong></td>
+          <td>One Pro host — <strong>up to 5 players share it free</strong> ($9.99/mo · $99.99/yr)</td>
+          <td>Per-account message packs ($5.99–$17.99/mo tiers)*</td></tr>
+      <tr><td><strong>Free tier</strong></td>
+          <td>20 GM turns/week, full game, solo or multiplayer</td>
+          <td>~60 free messages/month*</td></tr>
+      <tr><td><strong>GM memory</strong></td>
+          <td>Structured: NPC entity cards + tracked plot threads + cross-campaign world memory</td>
+          <td>Rolling context (players report long-campaign memory slips)</td></tr>
+      <tr><td><strong>Multiplayer</strong></td>
+          <td>Parties of 1–5, async or live turns, per-player <strong>secret moves</strong></td>
+          <td>Primarily solo-focused sessions</td></tr>
+      <tr><td><strong>Dice & rules</strong></td>
+          <td>Deterministic server engine — the AI never invents a roll</td>
+          <td>AI-adjudicated</td></tr>
+      <tr><td><strong>Languages</strong></td>
+          <td>GM narrates in English or German</td>
+          <td>English</td></tr>
+      <tr><td><strong>Voice</strong></td>
+          <td>Spoken narration + hands-free voice input</td>
+          <td>Text-first</td></tr>
+    </table>
+    </div>
+    <p class="small">*Competitor pricing and limits as published in third-party comparisons,
+    August 2026 — check <a href="https://everweave.ai" rel="nofollow">everweave.ai</a> for current
+    terms. Corrections welcome via <a href="https://lmfd104.github.io/discord/mythloom">our Discord</a>.</p>
 
-  <p><a class="cta" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Try Mythloom free on Android</a></p>
+    <div class="shots">
+      <figure class="shot"><img src="img/shot-dice.jpg" alt="The d20 ritual: roll 7 + 6 = 13 against difficulty 13 — Success" loading="lazy">
+        <figcaption>Real dice: the engine rolls, the AI only narrates.</figcaption></figure>
+      <figure class="shot"><img src="img/shot-continue.jpg" alt="Home screen showing YOUR MOVE and the campaign's open question" loading="lazy">
+        <figcaption>The story's open question waits on your home screen.</figcaption></figure>
+    </div>
 
-  <footer>
-    <p>Mythloom's narration is AI-generated (PG-13 ceiling); dice and rules come from a deterministic engine.
-    Everweave is a trademark of its respective owner; this page is an independent comparison by the Mythloom developer.</p>
-    <p><a href="index.html">Mythloom home</a> · <a href="ai-dungeon-alternative.html">AI Dungeon alternative</a> ·
-    <a href="../mythloom-privacy.html">Privacy</a></p>
-  </footer>
-</div>
+    <h2>The short version</h2>
+    <p>If you mostly play alone and love Everweave's flavor, it remains a good app. If you want to
+    bring <em>friends</em> — one subscription for the whole table, secrets between players, turns
+    that resolve on everyone's own schedule, and a GM whose memory is a database rather than a
+    fading context window — that's the table Mythloom set.</p>
+    <p style="text-align:center; margin-top:1.6em">
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Try Mythloom free on Android</a></p>
+  </div>
+</section>
+
+<footer>
+  <p>Screenshots are real gameplay. Mythloom's narration is AI-generated (PG-13 ceiling); dice and
+  rules come from a deterministic engine. Everweave is a trademark of its respective owner; this
+  page is an independent comparison by the Mythloom developer.</p>
+  <p><a href="index.html">Mythloom home</a> · <a href="ai-dungeon-alternative.html">AI Dungeon alternative</a> ·
+  <a href="../mythloom-privacy.html">Privacy</a></p>
+</footer>
 </body>
 </html>

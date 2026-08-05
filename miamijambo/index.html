@@ -4,137 +4,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Miami Jambo — Absurd K-pop by KPlop</title>
-<meta name="description" content="Miami Jambo is the home of KPlop — original parody K-pop where every song turns an internet trend into a candy-coated banger. Bilingual (Korean + English), all killer, all absurd.">
+<meta name="description" content="Miami Jambo is the home of KPlop, original parody K-pop where every song turns an internet trend into a bilingual, candy-coated banger. Ten releases, ten fictional idol acts.">
+<link rel="canonical" href="https://lmfd104.github.io/miamijambo/">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta property="og:title" content="Miami Jambo — Absurd K-pop by KPlop">
-<meta property="og:description" content="Original parody K-pop where every song turns an internet trend into a candy-coated banger.">
-<meta property="og:image" content="icon-512.png">
+<meta property="og:description" content="Miami Jambo is the home of KPlop, original parody K-pop where every song turns an internet trend into a bilingual, candy-coated banger. Ten releases, ten fictional idol acts.">
+<meta property="og:image" content="https://lmfd104.github.io/miamijambo/icon-512.png">
 <meta property="og:type" content="website">
-<style>
-  :root{
-    --pink:#ff2e93; --pink-lo:#ff6bb0; --magenta:#e01a86; --plum:#2a0730;
-    --plum-2:#3d0f47; --ink:#1a0620; --cream:#fff4fb; --muted:#e9b9d6;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    color:var(--cream); background:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased;
-  }
-  a{color:var(--pink-lo); text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
-
-  /* header */
-  header{
-    position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
-    background:rgba(26,6,32,.82); border-bottom:1px solid rgba(255,46,147,.25);
-  }
-  .bar{display:flex; align-items:center; gap:14px; padding:12px 20px; max-width:1080px; margin:0 auto}
-  .bar img{width:40px; height:40px; border-radius:11px; display:block}
-  .brand{font-weight:800; font-size:1.15rem; letter-spacing:.2px}
-  .brand span{color:var(--pink)}
-  nav{margin-left:auto; display:flex; gap:22px; font-weight:600; font-size:.95rem}
-  nav a{color:var(--muted)}
-  nav a:hover{color:#fff; text-decoration:none}
-  @media(max-width:640px){nav{display:none}}
-
-  /* hero */
-  .hero{
-    position:relative; text-align:center; padding:74px 20px 66px;
-    background:radial-gradient(120% 130% at 15% 0%, #ff6bb0 0%, #e01a86 42%, #a3116a 100%);
-    overflow:hidden;
-  }
-  .hero:before{content:""; position:absolute; inset:0;
-    background:radial-gradient(60% 60% at 85% 110%, rgba(255,255,255,.14), transparent 60%);}
-  .hero-inner{position:relative; z-index:1; max-width:760px; margin:0 auto}
-  .hero img{width:104px; height:104px; border-radius:26px; box-shadow:0 12px 40px rgba(0,0,0,.35); margin-bottom:22px}
-  .kicker{display:inline-block; font-weight:800; letter-spacing:.28em; text-transform:uppercase;
-    font-size:.72rem; color:#fff; background:rgba(0,0,0,.22); padding:7px 14px; border-radius:999px; margin-bottom:18px}
-  .hero h1{font-size:clamp(2.4rem,7vw,4.1rem); line-height:1.02; margin:.1em 0 .28em; font-weight:900; color:#fff}
-  .hero p.tag{font-size:clamp(1.05rem,2.6vw,1.35rem); color:#fff; opacity:.95; margin:0 auto 30px; max-width:600px}
-  .cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
-  .btn{display:inline-block; font-weight:800; padding:14px 26px; border-radius:999px; font-size:1rem}
-  .btn-yt{background:#fff; color:#c0136f}
-  .btn-tt{background:var(--plum); color:#fff}
-  .btn:hover{text-decoration:none; transform:translateY(-2px); transition:transform .15s}
-
-  /* sections */
-  section{padding:64px 0}
-  .section-head{text-align:center; max-width:640px; margin:0 auto 44px}
-  h2{font-size:clamp(1.7rem,4vw,2.5rem); font-weight:900; margin:0 0 12px}
-  h2 .em{color:var(--pink)}
-  .lead{color:var(--muted); font-size:1.08rem; margin:0}
-
-  /* about pillars */
-  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
-  @media(max-width:760px){.pillars{grid-template-columns:1fr}}
-  .pill{background:var(--plum); border:1px solid rgba(255,46,147,.22); border-radius:18px; padding:26px}
-  .pill .ico{font-size:1.7rem; margin-bottom:10px}
-  .pill h3{margin:0 0 8px; font-size:1.15rem}
-  .pill p{margin:0; color:var(--muted); font-size:.98rem}
-
-  /* releases grid */
-  #music{background:linear-gradient(180deg,#1a0620, #250a2e)}
-  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px}
-  @media(max-width:760px){.grid{grid-template-columns:1fr}}
-  .card{
-    background:var(--plum); border:1px solid rgba(255,46,147,.2); border-radius:18px; overflow:hidden;
-    display:flex; flex-direction:column; transition:transform .16s, box-shadow .16s;
-  }
-  .card:hover{transform:translateY(-4px); box-shadow:0 16px 40px rgba(224,26,134,.28)}
-  .card .cov{display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#000}
-  .card .body{padding:18px 20px 20px}
-  .card .num{font-weight:800; color:var(--pink); font-size:.8rem; letter-spacing:.1em}
-  .card h3{margin:4px 0 2px; font-size:1.25rem}
-  .card .ko{color:var(--muted); font-weight:600; font-size:.95rem; margin-bottom:10px}
-  .card .meta{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
-  .tagx{font-size:.72rem; font-weight:700; letter-spacing:.03em; padding:4px 10px; border-radius:999px;
-    background:rgba(255,46,147,.16); color:#ffb3d9}
-  .card p.desc{margin:0 0 16px; color:#f4d9ea; font-size:.95rem}
-  .watch{margin-top:auto; font-weight:800; color:#fff; background:var(--pink);
-    display:inline-block; padding:9px 18px; border-radius:999px; font-size:.9rem}
-  .watch:hover{text-decoration:none; background:#ff4da6}
-
-  /* watch strip */
-  .strip{text-align:center}
-  .strip .btn-yt{margin-top:8px}
-
-  /* footer */
-  footer{background:#120418; border-top:1px solid rgba(255,46,147,.22); padding:44px 20px 40px; text-align:center}
-  footer img{width:46px; height:46px; border-radius:13px; margin-bottom:14px}
-  footer .fbrand{font-weight:800; font-size:1.05rem; margin-bottom:6px}
-  footer p{color:var(--muted); margin:6px 0}
-  .flinks{display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin:16px 0 10px; font-weight:600}
-  .fine{color:#8f6d84; font-size:.82rem; margin-top:18px}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
   <div class="bar">
     <img src="icon-512.png" alt="Miami Jambo logo">
-    <div class="brand">Miami <span>Jambo</span></div>
+    <a class="brand" href="index.html">Miami <span>Jambo</span></a>
     <nav>
-      <a href="#about">About</a>
-      <a href="#music">Music</a>
-      <a href="#watch">Watch</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html" class="on">Home</a>
+      <a href="music.html">Music</a>
+      <a href="artists.html">The Acts</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
   <div class="hero-inner">
-    <img src="icon-512.png" alt="KPlop smiley logo">
+    <img class="logo" src="icon-512.png" alt="KPlop smiley logo">
     <div class="kicker">A Jambo Production</div>
     <h1>Absurd K-pop for<br>the internet age</h1>
-    <p class="tag">Miami Jambo is the home of <strong>KPlop</strong> — original parody K-pop where every song turns one very online trend into a candy-coated, bilingual banger.</p>
+    <p class="tag">Miami Jambo is the home of <strong>KPlop</strong> — original parody K-pop where every
+    song turns one very online trend into a candy-coated, bilingual banger.</p>
     <div class="cta">
-      <a class="btn btn-yt" href="https://www.youtube.com/channel/UCdH4TainV8szXyoOlV-kQpQ" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-      <a class="btn btn-tt" href="https://www.tiktok.com/@jamesderuyter" target="_blank" rel="noopener">Follow on TikTok</a>
+      <a class="btn btn-yt" href="music.html">Browse the releases</a>
+      <a class="btn btn-ghost" href="https://www.youtube.com/channel/UCdH4TainV8szXyoOlV-kQpQ" target="_blank" rel="noopener">Watch on YouTube</a>
     </div>
   </div>
 </section>
@@ -143,176 +49,109 @@
   <div class="wrap">
     <div class="section-head">
       <h2>What is <span class="em">KPlop</span>?</h2>
-      <p class="lead">Ten fictional K-pop acts. Ten internet obsessions. One studio turning both into songs that are far catchier than they have any right to be.</p>
+      <p class="lead">Ten fictional K-pop acts. Ten internet obsessions. One studio turning both into songs
+      that are far catchier than they have any right to be.</p>
     </div>
     <div class="pillars">
       <div class="pill">
-        <div class="ico">🎤</div>
+        <div class="ico">&#127908;</div>
         <h3>Original songs</h3>
-        <p>Every track is written and produced from scratch — a fresh hook, a genre, and a fully-invented idol group behind it. Hyperpop, disco-funk, trap-R&B, festival EDM, and cinematic OST ballads.</p>
+        <p>Every track is written and produced from scratch — a fresh hook, a genre, and a fully invented
+        idol group behind it. Hyperpop, disco-funk, trap-R&amp;B, festival EDM and cinematic OST ballads.</p>
       </div>
       <div class="pill">
-        <div class="ico">🌐</div>
+        <div class="ico">&#127760;</div>
         <h3>Very online themes</h3>
-        <p>Delulu manifesting, doomscrolling, the "clean girl" 5AM routine, dating by follower count, crypto to the moon. If it lives in your feed, there's a KPlop anthem for it.</p>
+        <p>Delulu manifesting, doomscrolling, the "clean girl" 5AM routine, dating by follower count,
+        crypto to the moon. If it lives in your feed, there is a KPlop anthem for it.</p>
       </div>
       <div class="pill">
-        <div class="ico">🇰🇷</div>
+        <div class="ico">&#127472;&#127479;</div>
         <h3>Bilingual by design</h3>
-        <p>English hooks over Korean verses, with burned-in karaoke subtitles so you can sing along in both. Released as full videos and vertical Shorts.</p>
+        <p>English hooks over Korean verses, with burned-in karaoke subtitles so you can sing along in
+        both. Released as full videos and vertical Shorts.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="music">
+<section class="alt">
   <div class="wrap">
     <div class="section-head">
-      <h2>The <span class="em">Releases</span></h2>
-      <p class="lead">Ten singles, ten acts. Tap any cover to watch the video on YouTube.</p>
+      <h2>Latest <span class="em">releases</span></h2>
+      <p class="lead">The three most recent singles. Every release has its own page with the video,
+      the concept, the act behind it and the production notes.</p>
     </div>
     <div class="grid">
-
-      <a class="card" href="https://www.youtube.com/watch?v=uVmUBLnkdyU" target="_blank" rel="noopener">
-        <img class="cov" src="covers/01-delulu.png" alt="Delulu cover" loading="lazy">
+      <a class="card" href="releases/10-pants-too-tight.html">
+        <img class="cov" src="covers/10-pants-too-tight.png" alt="Your Pants Are Too Tight cover art" loading="lazy">
         <div class="body">
-          <div class="num">01 · MIRAGE</div>
-          <h3>Delulu</h3>
-          <div class="ko">델루루 · Hyperpop</div>
-          <p class="desc">Manifesting a one-sided situationship into a full relationship through sheer delusional confidence. "Left on read? That's basically a proposal."</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=2CLoKiCQTS4" target="_blank" rel="noopener">
-        <img class="cov" src="covers/02-bot-not-you.png" alt="Bot, Not You cover" loading="lazy">
-        <div class="body">
-          <div class="num">02 · NOVA.ai</div>
-          <h3>Bot, Not You</h3>
-          <div class="ko">너 말고 봇 · Synth-R&amp;B</div>
-          <p class="desc">A tender breakup ballad where the rebound is a chatbot that listens better than your ex ever did. "It remembers my coffee order. You never did."</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=6K0xQsNllxs" target="_blank" rel="noopener">
-        <img class="cov" src="covers/03-clean-girl-morning.png" alt="Clean Girl Morning cover" loading="lazy">
-        <div class="body">
-          <div class="num">03 · GLOW UP</div>
-          <h3>Clean Girl Morning</h3>
-          <div class="ko">맑은 아침 · Bubblegum pop</div>
-          <p class="desc">The relentlessly cheerful 5AM "clean girl" routine — ice rolling, matcha, journaling — sung with the manic energy of someone who has not actually slept.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=-RnH33AXd2U" target="_blank" rel="noopener">
-        <img class="cov" src="covers/04-infinite-scroll.png" alt="Infinite Scroll cover" loading="lazy">
-        <div class="body">
-          <div class="num">04 · VOID</div>
-          <h3>Infinite Scroll</h3>
-          <div class="ko">무한 스크롤 · Trap-R&amp;B</div>
-          <p class="desc">A hypnotic 3AM doomscroll as a love song to the algorithm — thumb on autopilot, brain dissolving. The beat loops like the feed.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=JkwJJyN1UN8" target="_blank" rel="noopener">
-        <img class="cov" src="covers/05-work-from-home.png" alt="Work From Home cover" loading="lazy">
-        <div class="body">
-          <div class="num">05 · 9TO5</div>
-          <h3>Work From Home</h3>
-          <div class="ko">재택근무 · Disco funk</div>
-          <p class="desc">A funky strut about business-shirt-on-top, pajamas-below remote work — mouse jiggler keeping you "active," quiet-quitting with maximum swagger.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=WSmc01IW3cg" target="_blank" rel="noopener">
-        <img class="cov" src="covers/06-to-the-moon.png" alt="To The Moon cover" loading="lazy">
-        <div class="body">
-          <div class="num">06 · MOON SHOT</div>
-          <h3>To The Moon</h3>
-          <div class="ko">떡상 · Festival EDM</div>
-          <p class="desc">A euphoric banger riding the crypto rollercoaster — diamond hands at the drop, cope in the breakdown. Maximum hype, minimum portfolio.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=aA8j_LOsgSo" target="_blank" rel="noopener">
-        <img class="cov" src="covers/07-its-you.png" alt="It's You cover" loading="lazy">
-        <div class="body">
-          <div class="num">07 · BLOK</div>
-          <h3>It's You</h3>
-          <div class="ko">네 탓이야 · R&amp;B pop</div>
-          <p class="desc">The confident breakup flip. Everyone says "it's not you, it's me." This glossy kiss-off calmly informs the ex that it is, in fact, 100% them — receipts attached.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=6-zrI-iA6CU" target="_blank" rel="noopener">
-        <img class="cov" src="covers/08-garlic-noodles.png" alt="Garlic Noodles cover" loading="lazy">
-        <div class="body">
-          <div class="num">08 · SERAH</div>
-          <h3>Garlic Noodles</h3>
-          <div class="ko">마늘 국수 · OST ballad</div>
-          <p class="desc">A sweeping K-drama ballad about the one tragic mistake that doomed the perfect first date — <em>both</em> of them ordered the garlic noodles.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=JinzVn8nDeM" target="_blank" rel="noopener">
-        <img class="cov" src="covers/09-not-famous-enough.png" alt="Not Famous Enough cover" loading="lazy">
-        <div class="body">
-          <div class="num">09 · CLOUT</div>
-          <h3>Not Famous Enough</h3>
-          <div class="ko">넌 안 유명해 · Hyperpop</div>
-          <p class="desc">A cold, bratty anthem about dating in the influencer economy — swiped, rejected, and dumped purely on follower count. No verified check, no deal, no love.</p>
-          <span class="watch">▶ Watch</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.youtube.com/watch?v=nJlNaToqjEs" target="_blank" rel="noopener">
-        <img class="cov" src="covers/10-pants-too-tight.png" alt="Your Pants Are Too Tight cover" loading="lazy">
-        <div class="body">
-          <div class="num">10 · SNATCH</div>
+          <div class="num">10 &middot; SNATCH</div>
           <h3>Your Pants Are Too Tight</h3>
-          <div class="ko">바지가 너무 껴 · Funk pop</div>
-          <p class="desc">A finger-wagging retro-funk strut about a boy whose skinny jeans have gone too far — can't sit, can't dance, and every staircase is a threat.</p>
-          <span class="watch">▶ Watch</span>
+          <div class="ko">바지가 너무 껴 &middot; Funk pop</div>
+          <p class="desc">A flirty, finger-wagging retro-funk strut about a boy whose skinny jeans have gone too far — he can't sit, can't dance, can't feel his legs, and every staircase is a threat. Fashion is…</p>
+          <span class="watch">Read more &rarr;</span>
         </div>
       </a>
-
+      <a class="card" href="releases/09-not-famous-enough.html">
+        <img class="cov" src="covers/09-not-famous-enough.png" alt="Not Famous Enough cover art" loading="lazy">
+        <div class="body">
+          <div class="num">09 &middot; CLOUT</div>
+          <h3>Not Famous Enough</h3>
+          <div class="ko">넌 안 유명해 &middot; Hyperpop</div>
+          <p class="desc">A cold, bratty hyperpop anthem about dating in the influencer economy — getting swiped, rejected, and dumped purely on follower count. He's cute, sure, but his profile's private, there's no…</p>
+          <span class="watch">Read more &rarr;</span>
+        </div>
+      </a>
+      <a class="card" href="releases/08-garlic-noodles.html">
+        <img class="cov" src="covers/08-garlic-noodles.png" alt="Garlic Noodles cover art" loading="lazy">
+        <div class="body">
+          <div class="num">08 &middot; SERAH</div>
+          <h3>Garlic Noodles</h3>
+          <div class="ko">마늘 국수 &middot; OST ballad</div>
+          <p class="desc">A sweeping, devastating K-drama OST ballad about the one tragic mistake that doomed the perfect first date — both of them ordered the garlic noodles. The moonlight, the chemistry, the…</p>
+          <span class="watch">Read more &rarr;</span>
+        </div>
+      </a>
     </div>
+    <p style="text-align:center; margin-top:34px">
+      <a class="btn btn-yt" href="music.html">See all ten releases &rarr;</a>
+    </p>
   </div>
 </section>
 
-<section id="watch" class="strip">
-  <div class="wrap">
+<section>
+  <div class="wrap narrow">
     <div class="section-head">
       <h2>Where to <span class="em">watch &amp; follow</span></h2>
-      <p class="lead">New KPlop drops land on YouTube as full videos and vertical Shorts, and on TikTok. Come for the delulu, stay for the garlic noodles.</p>
+      <p class="lead">New KPlop drops land on YouTube as full videos and vertical Shorts, and on TikTok.
+      Come for the delulu, stay for the garlic noodles.</p>
     </div>
     <div class="cta">
-      <a class="btn btn-yt" href="https://www.youtube.com/channel/UCdH4TainV8szXyoOlV-kQpQ" target="_blank" rel="noopener">▶ YouTube — Miami Jambo</a>
+      <a class="btn btn-yt" href="https://www.youtube.com/channel/UCdH4TainV8szXyoOlV-kQpQ" target="_blank" rel="noopener">YouTube — Miami Jambo</a>
       <a class="btn btn-tt" href="https://www.tiktok.com/@jamesderuyter" target="_blank" rel="noopener">TikTok — @jamesderuyter</a>
     </div>
   </div>
 </section>
 
-<footer id="contact">
+<footer>
   <img src="icon-512.png" alt="Miami Jambo logo">
   <div class="fbrand">Miami Jambo</div>
-  <p>Original parody K-pop &amp; anime shorts. Made with a lot of synths and a little chaos.</p>
+  <p>Original parody K-pop and short-form video. Made with a lot of synths and a little chaos.</p>
   <div class="flinks">
+    <a href="index.html">Home</a>
+    <a href="music.html">Music</a>
+    <a href="artists.html">The Acts</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
     <a href="https://www.youtube.com/channel/UCdH4TainV8szXyoOlV-kQpQ" target="_blank" rel="noopener">YouTube</a>
     <a href="https://www.tiktok.com/@jamesderuyter" target="_blank" rel="noopener">TikTok</a>
     <a href="privacy.html">Privacy</a>
     <a href="terms.html">Terms</a>
-    <a href="mailto:mjambogames@gmail.com">Contact</a>
   </div>
   <p>Business &amp; booking: <a href="mailto:mjambogames@gmail.com">mjambogames@gmail.com</a></p>
-  <p class="fine">© 2026 Miami Jambo. KPlop is a parody project — all groups, idols, and lyrics are original and fictional. Not affiliated with any real artist or label.</p>
+  <p class="fine">&copy; 2026 Miami Jambo. KPlop is a parody project — every group, idol, and lyric is
+  original and fictional. Not affiliated with, endorsed by, or representing any real artist, agency or label.</p>
 </footer>
 
 </body>

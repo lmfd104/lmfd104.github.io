@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Game — TeamTally</title>
+<title>Game — Tallyside</title>
 <!--
-  Parent-facing public game page for TeamTally (com.flagstatspro, MiamiJambo).
+  Parent-facing public game page for Tallyside (com.flagstatspro, MiamiJambo).
 
   Lives here rather than in the edge function because Supabase rewrites text/html GET
   responses on *.supabase.co to text/plain + a sandbox CSP, which silently broke every
@@ -86,7 +86,7 @@
   function storeFooter() {
     var f = el("footer");
     f.appendChild(document.createTextNode("🏈 Scored with "));
-    var a = el("a", null, "TeamTally");
+    var a = el("a", null, "Tallyside");
     a.href = STORE;
     f.appendChild(a);
     return f;
@@ -178,12 +178,12 @@
     }));
     if (plays) root.appendChild(plays);
 
-    var cta = el("a", "cta", "Get TeamTally free");
+    var cta = el("a", "cta", "Get Tallyside free");
     cta.href = STORE;
     root.appendChild(cta);
     root.appendChild(storeFooter());
 
-    document.title = g.home + " vs " + g.away + " — TeamTally";
+    document.title = g.home + " vs " + g.away + " — Tallyside";
   }
 
   var gameId = new URLSearchParams(location.search).get("g") || "";

@@ -1,133 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>lmfd104 — apps</title>
-  <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 2.5rem 1.25rem 3.5rem;
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: #241c2a; color: #eee; line-height: 1.5;
-    }
-    .wrap { max-width: 46rem; margin: 0 auto; }
-    header { margin-bottom: 2.5rem; }
-    h1 { margin: 0 0 .35rem; color: #f5c33b; font-size: 1.9rem; }
-    .tag { margin: 0; color: #b9b2c0; }
-    .app {
-      border: 1px solid #3b3143; border-radius: 10px;
-      padding: 1.1rem 1.25rem; margin-bottom: 1rem; background: #2b2233;
-    }
-    .app h2 { margin: 0 0 .2rem; font-size: 1.15rem; color: #fff; }
-    .app p { margin: 0 0 .75rem; color: #c6bfcd; font-size: .95rem; }
-    .links { display: flex; flex-wrap: wrap; gap: .5rem .9rem; font-size: .9rem; }
-    a { color: #b07cff; text-decoration: none; }
-    a:hover, a:focus { text-decoration: underline; }
-    footer {
-      margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid #3b3143;
-      font-size: .85rem; color: #9a93a1;
-    }
-    footer .links { margin-top: .5rem; }
-    /* Injected TikTok auth panel (only ever shown when ?code= is present). */
-    #auth-box { background:#1a2a1a; border:2px solid #4caf50; border-radius:8px;
-      padding:1.5rem; margin-bottom:2rem; word-break:break-all; }
-    #auth-box h2 { color:#4caf50; margin-top:0; }
-    #auth-code { font-family:monospace; font-size:1em; color:#fff; background:#0d1a0d;
-      padding:.5rem; border-radius:4px; display:block; margin:.5rem 0; }
-    #copy-btn { padding:.4rem 1.2rem; background:#4caf50; color:#fff;
-      border:none; border-radius:4px; cursor:pointer; font-size:1em; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lmfd104 — apps for tabletop gamers, players and coaches</title>
+<meta name="description" content="Mobile apps for tabletop gamers, players and coaches. Character builders, an army list builder and a sideline scorekeeper — all offline, all ad-free.">
+<meta property="og:title" content="lmfd104 — apps for tabletop gamers, players and coaches">
+<meta property="og:description" content="Mobile apps for tabletop gamers, players and coaches. Character builders, an army list builder and a sideline scorekeeper — all offline, all ad-free.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/site.css?v=ec23bf7a">
 </head>
 <body>
-  <script>
-    // Unchanged: surfaces a TikTok OAuth code when the provider redirects here with ?code=.
-    // Invisible during normal visits.
-    (function() {
-      var p = new URLSearchParams(window.location.search);
-      var code = p.get("code");
-      if (!code) return;
-      var safe = code.replace(/[<>&"]/g, function(c){
-        return {"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c];
-      });
-      var box = document.createElement("div");
-      box.id = "auth-box";
-      box.innerHTML = "<h2>TikTok Auth Code<\/h2>"
-        + "<p>Copy this and paste it into the terminal:<\/p>"
-        + "<code id='auth-code'>" + safe + "<\/code>"
-        + "<button id='copy-btn' onclick='navigator.clipboard.writeText(this.previousSibling.textContent);this.textContent=\"Copied!\"'>Copy Code<\/button>";
-      document.body.prepend(box);
-    })();
-  </script>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="/"><span class="mark">L</span>lmfd104</a>
+<nav class="site-nav">
+  <a href="/#apps">Apps</a>
+  <a href="/rules/">Rules</a>
+  <a href="/play/">Play</a>
+  <a href="/#about">About</a>
+</nav>
+</div></header>
+<main>
+<div class="wrap">
 
-  <div class="wrap">
-    <header>
-      <h1>lmfd104</h1>
-      <p class="tag">Mobile apps for tabletop gamers, players and coaches.</p>
-    </header>
+  <section class="hero" style="margin-top:0">
+    <p class="eyebrow">Independent &middot; ad-free</p>
+    <h1>Tools for the table,<br>built to work offline.</h1>
+    <p class="lede">Mobile apps for tabletop gamers, players and coaches. Character builders that show their working, an army list builder
+    that speaks the community's own data, and a scorekeeper that survives a field with no signal.
+    No accounts, no ads, no telemetry.</p>
+  </section>
 
-    <div class="app">
-      <h2>Muster</h2>
-      <p>Army list builder for tabletop wargames. Imports community-maintained datafiles, so you
-         browse real datasheets and build lists on your phone.</p>
-      <div class="links">
-        <a href="https://play.google.com/store/apps/details?id=com.lmfd.warboss">Google Play</a>
-        <a href="https://apps.apple.com/us/app/muster-army-builder/id6786288983">App Store</a>
-        <a href="/muster-support.html">Support</a>
-        <a href="/muster-privacy.html">Privacy</a>
-      </div>
+  <section id="free" class="band">
+    <h2 class="section">Free in your browser</h2>
+    <p class="section-note">No install, no account, nothing to sign up for.</p>
+    <div class="band-grid">
+      <a class="band-card" href="rules/">
+        <span class="band-kicker">Rules reference</span>
+        <strong>Look up any feat, spell or item</strong>
+        <span>The full Pathfinder 2e and Starfinder 2e catalogues &mdash; 20,543 entries,
+        searchable, straight from the apps' own data.</span>
+        <span class="band-go">Open the reference &rarr;</span>
+      </a>
+      <a class="band-card" href="play/theguild/">
+        <span class="band-kicker">Playable now</span>
+        <strong>The Guild: Emberfall</strong>
+        <span>Run an adventurer's guild, take contracts and send your people out. The opening
+        regions play free in the browser.</span>
+        <span class="band-go">Press play &rarr;</span>
+      </a>
     </div>
+  </section>
 
-    <div class="app">
-      <h2>Hero&rsquo;s Ledger</h2>
-      <p>2e fantasy character builder &mdash; create, level and manage characters, with the full
-         rules content available offline.</p>
-      <div class="links">
-        <a href="https://play.google.com/store/apps/details?id=com.pf2ebuilder.app">Google Play</a>
-        <a href="https://apps.apple.com/us/app/heros-ledger-pf2e/id6786302077">App Store</a>
-        <a href="/herosledger-privacy.html">Privacy</a>
-      </div>
+  <section id="apps">
+    <h2 class="section">The apps</h2>
+    <p class="section-note">Five shipped and available now, on Android and &mdash; where noted
+    &mdash; iOS.</p>
+    <div class="apps">
+<article class="card">
+  <div class="card-shot"><img src="assets/img/starfarers/shot1.webp"
+       alt="Starfarer&#x27;s Ledger screenshot" width="560" loading="lazy"></div>
+  <div class="card-body">
+    <div class="card-head">
+      <img src="assets/img/starfarers/icon.png" alt="" width="192" height="192">
+      <div><h2><a href="starfarers/">Starfarer&#x27;s Ledger</a></h2><div class="tagline">Starfinder 2e character builder</div></div>
     </div>
-
-    <div class="app">
-      <h2>Starfarer&rsquo;s Ledger</h2>
-      <p>Science-fantasy 2e character builder, from the same toolkit as Hero&rsquo;s Ledger.</p>
-      <div class="links">
-        <a href="https://apps.apple.com/us/app/starfarers-ledger-sf2e/id6786275346">App Store</a>
-        <a href="/sf2ebuilder-privacy.html">Privacy</a>
-      </div>
-    </div>
-
-    <div class="app">
-      <h2>Mythloom</h2>
-      <p>Multiplayer AI game master &mdash; run a tabletop-style campaign with friends, narrated as
-         you play.</p>
-      <div class="links">
-        <a href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom">Google Play</a>
-        <a href="https://apps.apple.com/us/app/mythloom-multiplayer-ai-gm/id6788536595">App Store</a>
-        <a href="/mythloom-privacy.html">Privacy</a>
-      </div>
-    </div>
-
-    <div class="app">
-      <h2>TeamTally</h2>
-      <p>Youth flag-football stat tracking for coaches and parents &mdash; live scoring, player
-         stats and season history.</p>
-      <div class="links">
-        <a href="https://play.google.com/store/apps/details?id=com.flagstatspro">Google Play</a>
-        <a href="/teamtally-privacy.html">Privacy</a>
-      </div>
-    </div>
-
-    <footer>
-      More privacy policies:
-      <div class="links">
-        <a href="/aftershock-privacy.html">Aftershock</a>
-        <a href="/afterblock-privacy.html">Afterblock</a>
-        <a href="/theguild-privacy.html">The Guild</a>
-      </div>
-    </footer>
+    <p>Create, level and play Starfinder 2e characters. A guided builder, a live sheet, and official PDF export — all of it offline.</p>
+    <div class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.sf2ebuilder.app"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3a1 1 0 0 0-.5.9v17.6a1 1 0 0 0 .5.9l9.3-9.7zM14 11l2.9-3-9.6-5.5zm0 2 -6.7 8.5 9.6-5.5zm4.3-4.4 3.1 1.8a1.1 1.1 0 0 1 0 1.9l-3.1 1.8L15 12z"/></svg>Google Play</a><a class="store" href="https://apps.apple.com/us/app/starfarers-ledger-sf2e/id6786275346"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.6 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.2 5.5c.6-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.5z"/></svg>App Store</a></div>
   </div>
+</article>
+<article class="card">
+  <div class="card-shot"><img src="assets/img/herosledger/shot3.webp"
+       alt="Hero&#x27;s Ledger screenshot" width="560" loading="lazy"></div>
+  <div class="card-body">
+    <div class="card-head">
+      <img src="assets/img/herosledger/icon.png" alt="" width="192" height="192">
+      <div><h2><a href="herosledger/">Hero&#x27;s Ledger</a></h2><div class="tagline">Pathfinder 2e character builder</div></div>
+    </div>
+    <p>The full Pathfinder 2e ruleset in your pocket — 27 classes, 5,900+ feats, 1,700+ spells, and a sheet that keeps up as you level.</p>
+    <div class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.pf2ebuilder.app"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3a1 1 0 0 0-.5.9v17.6a1 1 0 0 0 .5.9l9.3-9.7zM14 11l2.9-3-9.6-5.5zm0 2 -6.7 8.5 9.6-5.5zm4.3-4.4 3.1 1.8a1.1 1.1 0 0 1 0 1.9l-3.1 1.8L15 12z"/></svg>Google Play</a><a class="store" href="https://apps.apple.com/us/app/heros-ledger-pf2e/id6786302077"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.6 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.2 5.5c.6-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.5z"/></svg>App Store</a></div>
+  </div>
+</article>
+<article class="card">
+  <div class="card-shot"><img src="assets/img/muster/shot1.webp"
+       alt="Muster screenshot" width="560" loading="lazy"></div>
+  <div class="card-body">
+    <div class="card-head">
+      <img src="assets/img/muster/icon.png" alt="" width="192" height="192">
+      <div><h2><a href="muster/">Muster</a></h2><div class="tagline">Army list builder for tabletop wargames</div></div>
+    </div>
+    <p>Eleven game systems from one app. Import community datafiles once, then browse real datasheets and build legal lists entirely offline.</p>
+    <div class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.lmfd.warboss"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3a1 1 0 0 0-.5.9v17.6a1 1 0 0 0 .5.9l9.3-9.7zM14 11l2.9-3-9.6-5.5zm0 2 -6.7 8.5 9.6-5.5zm4.3-4.4 3.1 1.8a1.1 1.1 0 0 1 0 1.9l-3.1 1.8L15 12z"/></svg>Google Play</a><a class="store" href="https://apps.apple.com/us/app/muster-army-builder/id6786288983"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.6 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.2 5.5c.6-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.5z"/></svg>App Store</a></div>
+  </div>
+</article>
+<article class="card">
+  <div class="card-shot"><img src="assets/img/mythloom/shot1.webp"
+       alt="Mythloom screenshot" width="560" loading="lazy"></div>
+  <div class="card-body">
+    <div class="card-head">
+      <img src="assets/img/mythloom/icon.png" alt="" width="192" height="192">
+      <div><h2><a href="mythloom/">Mythloom</a></h2><div class="tagline">Multiplayer AI Game Master</div></div>
+    </div>
+    <p>One living story, narrated by an AI Game Master and shaped by your whole party — together in real time, or each on your own schedule.</p>
+    <div class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.lmfd.mythloom"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3a1 1 0 0 0-.5.9v17.6a1 1 0 0 0 .5.9l9.3-9.7zM14 11l2.9-3-9.6-5.5zm0 2 -6.7 8.5 9.6-5.5zm4.3-4.4 3.1 1.8a1.1 1.1 0 0 1 0 1.9l-3.1 1.8L15 12z"/></svg>Google Play</a><a class="store" href="https://apps.apple.com/us/app/mythloom-multiplayer-ai-gm/id6788536595"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.6 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.2 5.5c.6-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.5z"/></svg>App Store</a></div>
+  </div>
+</article>
+<article class="card">
+  <div class="card-shot"><img src="assets/img/teamtally/shot1.webp"
+       alt="TeamTally screenshot" width="560" loading="lazy"></div>
+  <div class="card-body">
+    <div class="card-head">
+      <img src="assets/img/teamtally/icon.png" alt="" width="192" height="192">
+      <div><h2><a href="teamtally/">TeamTally</a></h2><div class="tagline">Sideline scoring and player stats</div></div>
+    </div>
+    <p>Score games with a tap and keep every player&#x27;s stat line — flag football, rugby, 7v7 and ultimate. Works with no signal on the field.</p>
+    <div class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.flagstatspro"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3a1 1 0 0 0-.5.9v17.6a1 1 0 0 0 .5.9l9.3-9.7zM14 11l2.9-3-9.6-5.5zm0 2 -6.7 8.5 9.6-5.5zm4.3-4.4 3.1 1.8a1.1 1.1 0 0 1 0 1.9l-3.1 1.8L15 12z"/></svg>Google Play</a></div>
+  </div>
+</article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section">In development</h2>
+    <p class="section-note">Built, but not yet on a public store listing.</p>
+    <div class="apps">
+<article class="card">
+  <div class="card-shot"><img src="assets/img/theguild/shot1.webp"
+       alt="The Guild: Emberfall screenshot" width="560" loading="lazy"></div>
+  <div class="card-body">
+    <div class="card-head">
+      <img src="assets/img/theguild/icon.png" alt="" width="192" height="192">
+      <div><h2>The Guild: Emberfall</h2><div class="tagline">Adventurer&#x27;s guild management RPG <span class="badge soon">In development</span></div></div>
+    </div>
+    <p>Run the hall, take the contracts, send them out. A pixel-art management RPG set in Emberfall.</p>
+    <div class="stores"><a class="store ghost" href="/theguild-support.html">Support</a><a class="store ghost" href="/theguild-privacy.html">Privacy</a></div>
+  </div>
+</article>
+    </div>
+  </section>
+
+  <section id="about" class="narrow">
+    <h2 class="section">About</h2>
+    <p class="section-note">These are made by one person, and the same three rules apply to all of
+    them: they work without an internet connection, they don't carry ads, and they don't ask you to
+    make an account before you can start. The rules content in the character builders is generated
+    from the publishers' own published data rather than typed in by hand, which is why it stays
+    current and why the numbers on the sheet can be traced back to a source.</p>
+    <div class="callout"><strong>Found a bug, or want something added?</strong> Every app has a
+    Report a Bug button in its settings, and each has its own support page and Discord &mdash; the
+    links are in the footer. Feedback genuinely sets the roadmap.</div>
+  </section>
+
+</div>
+</main>
+<script>
+  (function () {
+    var code = new URLSearchParams(window.location.search).get("code");
+    if (!code) return;
+    var box = document.createElement("div");
+    box.style.cssText = "background:#1a2a1a;border:2px solid #4caf50;border-radius:8px;" +
+      "padding:1.5rem;margin:1rem;word-break:break-all;color:#fff";
+    var h = document.createElement("h2");
+    h.textContent = "TikTok Auth Code";
+    h.style.cssText = "color:#4caf50;margin-top:0";
+    var label = document.createElement("p");
+    label.textContent = "Copy this and paste it into the terminal:";
+    var codeEl = document.createElement("code");
+    codeEl.textContent = code;
+    codeEl.style.cssText = "font-family:monospace;background:#0d1a0d;padding:.5rem;" +
+      "border-radius:4px;display:block;margin:.5rem 0";
+    var btn = document.createElement("button");
+    btn.textContent = "Copy Code";
+    btn.style.cssText = "padding:.4rem 1.2rem;background:#4caf50;color:#fff;border:none;" +
+      "border-radius:4px;cursor:pointer";
+    btn.onclick = function () { navigator.clipboard.writeText(code); btn.textContent = "Copied"; };
+    box.append(h, label, codeEl, btn);
+    document.body.prepend(box);
+  })();
+</script>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-cols">
+  <div><h3>Apps</h3><ul><li><a href="/starfarers/">Starfarer&#x27;s Ledger</a></li><li><a href="/herosledger/">Hero&#x27;s Ledger</a></li><li><a href="/muster/">Muster</a></li><li><a href="/mythloom/">Mythloom</a></li><li><a href="/teamtally/">TeamTally</a></li></ul></div>
+  <div><h3>Support</h3><ul><li><a href="/sf2ebuilder-support.html">Starfarer&#x27;s Ledger</a></li><li><a href="/herosledger-support.html">Hero&#x27;s Ledger</a></li><li><a href="/muster-support.html">Muster</a></li><li><a href="/mythloom-support.html">Mythloom</a></li><li><a href="/teamtally-support.html">TeamTally</a></li><li><a href="/theguild-support.html">The Guild: Emberfall</a></li></ul></div>
+  <div><h3>Privacy</h3><ul><li><a href="/sf2ebuilder-privacy.html">Starfarer&#x27;s Ledger</a></li><li><a href="/herosledger-privacy.html">Hero&#x27;s Ledger</a></li><li><a href="/muster-privacy.html">Muster</a></li><li><a href="/mythloom-privacy.html">Mythloom</a></li><li><a href="/teamtally-privacy.html">TeamTally</a></li><li><a href="/theguild-privacy.html">The Guild: Emberfall</a></li></ul></div>
+</div>
+<p class="legal">&copy; 2026 James De Ruyter. Pathfinder and Starfinder are trademarks of Paizo
+Inc.; these apps are unofficial and published under the Paizo Community Use Policy. Wargame data is
+imported from the community-maintained BSData project. All other trademarks belong to their
+respective owners.</p>
+</div></footer>
 </body>
 </html>

@@ -1,0 +1,7 @@
+/* ==========================================================================
+   HALL THEME — "Hearthwood" (free default).
+   The base system in css/styles.css IS this theme: dark oak chrome, warm
+   parchment sheets, gold actions — the same material language as the hall
+   art. This file intentionally overrides nothing; it exists so the theme
+   switcher (js/shop.js swaps #skinlink) always has a real file to point at.
+   ========================================================================== */

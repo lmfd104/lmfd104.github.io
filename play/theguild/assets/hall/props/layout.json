@@ -1,0 +1,102 @@
+{
+ "_note": "Where each prop stands and what it takes to earn it. Coordinates are normalized over the 1280x1280 hall image and anchor the prop's FEET (origin 0.5, 1). `lvl` gates on that room's facility level; `bosses` gates on bosses cleared. The hall is COMPOSED now (tools/gen_hall_build.py): base furniture is stamped into hall.png by that tool, and dormitory/smithy/training tiers are baked into assets/hall/rooms/ \u2014 so this file holds only what a LEVEL or a BOSS earns. Anything solid added here also needs a rect in SOLIDS in js/hall.js, then node tools/check_hall_paths.mjs.",
+ "kitchen": [
+  {
+   "key": "barrels",
+   "lvl": 2,
+   "at": [
+    0.155,
+    0.31
+   ]
+  },
+  {
+   "key": "ham_rack",
+   "lvl": 3,
+   "at": [
+    0.15,
+    0.175
+   ]
+  },
+  {
+   "key": "shelf_tall",
+   "lvl": 4,
+   "at": [
+    0.068,
+    0.3
+   ]
+  }
+ ],
+ "tavern": [
+  {
+   "key": "trophy_wolf",
+   "bosses": 1,
+   "at": [
+    0.335,
+    0.152
+   ]
+  },
+  {
+   "key": "trophy_bear",
+   "bosses": 2,
+   "at": [
+    0.655,
+    0.152
+   ]
+  },
+  {
+   "key": "sword_mount",
+   "bosses": 3,
+   "at": [
+    0.42,
+    0.14
+   ]
+  },
+  {
+   "key": "hearth_great",
+   "at": [
+    0.7,
+    0.3
+   ]
+  },
+  {
+   "key": "rug_hearth",
+   "lvl": 2,
+   "at": [
+    0.7,
+    0.372
+   ]
+  },
+  {
+   "key": "feast_table",
+   "lvl": 2,
+   "at": [
+    0.7,
+    0.455
+   ]
+  },
+  {
+   "key": "barrels",
+   "lvl": 3,
+   "at": [
+    0.755,
+    0.468
+   ]
+  },
+  {
+   "key": "plant_tall",
+   "lvl": 3,
+   "at": [
+    0.635,
+    0.3
+   ]
+  },
+  {
+   "key": "chest",
+   "lvl": 4,
+   "at": [
+    0.745,
+    0.295
+   ]
+  }
+ ]
+}

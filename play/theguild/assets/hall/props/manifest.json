@@ -1,0 +1,118 @@
+{
+ "anvil": [
+  34,
+  26
+ ],
+ "barrels": [
+  24,
+  46
+ ],
+ "bed": [
+  54,
+  138
+ ],
+ "bottle_shelf": [
+  122,
+  42
+ ],
+ "brazier": [
+  26,
+  64
+ ],
+ "cabinet": [
+  80,
+  88
+ ],
+ "chest": [
+  54,
+  46
+ ],
+ "dummy": [
+  26,
+  44
+ ],
+ "exterior": [
+  32,
+  32
+ ],
+ "feast_table": [
+  48,
+  43
+ ],
+ "ground": [
+  32,
+  32
+ ],
+ "ham_rack": [
+  60,
+  30
+ ],
+ "hearth_great": [
+  64,
+  100
+ ],
+ "hoarding": [
+  32,
+  32
+ ],
+ "plant_small": [
+  32,
+  42
+ ],
+ "plant_tall": [
+  32,
+  58
+ ],
+ "rug": [
+  128,
+  94
+ ],
+ "rug_hearth": [
+  50,
+  48
+ ],
+ "scaffold": [
+  40,
+  56
+ ],
+ "shelf_tall": [
+  62,
+  90
+ ],
+ "sword_mount": [
+  58,
+  18
+ ],
+ "target": [
+  30,
+  34
+ ],
+ "trophy_bear": [
+  36,
+  40
+ ],
+ "trophy_wolf": [
+  40,
+  40
+ ],
+ "weapon_rack": [
+  46,
+  40
+ ],
+ "wing_bath": [
+  219,
+  314
+ ],
+ "wing_beds": [
+  334,
+  319
+ ],
+ "wing_stone": [
+  236,
+  420
+ ],
+ "wing_tables": [
+  410,
+  240
+ ]
+}

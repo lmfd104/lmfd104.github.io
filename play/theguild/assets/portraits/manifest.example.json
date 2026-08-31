@@ -1,0 +1,1 @@
+{ "pool": [ { "file": "example_fighter_1.png", "ancestry": "Human", "class": "Fighter" } ] }

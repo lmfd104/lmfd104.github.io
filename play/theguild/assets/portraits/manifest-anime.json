@@ -1,0 +1,695 @@
+{
+ "bustFiles": [
+  "dwarf_bard_1_happy.png",
+  "dwarf_bard_1_hurt.png",
+  "dwarf_cleric_1_happy.png",
+  "dwarf_cleric_1_hurt.png",
+  "dwarf_fighter_1_happy.png",
+  "dwarf_fighter_1_hurt.png",
+  "dwarf_ranger_1_happy.png",
+  "dwarf_ranger_1_hurt.png",
+  "dwarf_rogue_1_happy.png",
+  "dwarf_rogue_1_hurt.png",
+  "dwarf_wizard_1_happy.png",
+  "dwarf_wizard_1_hurt.png",
+  "elf_bard_1_desire.png",
+  "elf_bard_1_fury.png",
+  "elf_bard_1_grief.png",
+  "elf_bard_1_happy.png",
+  "elf_bard_1_hurt.png",
+  "elf_cleric_1_desire.png",
+  "elf_cleric_1_fury.png",
+  "elf_cleric_1_grief.png",
+  "elf_cleric_1_happy.png",
+  "elf_cleric_1_hurt.png",
+  "elf_fighter_1_desire.png",
+  "elf_fighter_1_fury.png",
+  "elf_fighter_1_grief.png",
+  "elf_fighter_1_happy.png",
+  "elf_fighter_1_hurt.png",
+  "elf_ranger_1_desire.png",
+  "elf_ranger_1_fury.png",
+  "elf_ranger_1_grief.png",
+  "elf_ranger_1_happy.png",
+  "elf_ranger_1_hurt.png",
+  "elf_rogue_1.png",
+  "elf_rogue_1_desire.png",
+  "elf_rogue_1_fury.png",
+  "elf_rogue_1_grief.png",
+  "elf_rogue_1_happy.png",
+  "elf_rogue_1_hurt.png",
+  "elf_wizard_1_desire.png",
+  "elf_wizard_1_fury.png",
+  "elf_wizard_1_grief.png",
+  "elf_wizard_1_happy.png",
+  "elf_wizard_1_hurt.png",
+  "gnome_bard_1_happy.png",
+  "gnome_bard_1_hurt.png",
+  "gnome_cleric_1_happy.png",
+  "gnome_cleric_1_hurt.png",
+  "gnome_fighter_1_happy.png",
+  "gnome_fighter_1_hurt.png",
+  "gnome_ranger_1_happy.png",
+  "gnome_ranger_1_hurt.png",
+  "gnome_rogue_1_happy.png",
+  "gnome_rogue_1_hurt.png",
+  "gnome_wizard_1_happy.png",
+  "gnome_wizard_1_hurt.png",
+  "halfling_bard_1_happy.png",
+  "halfling_bard_1_hurt.png",
+  "halfling_cleric_1_happy.png",
+  "halfling_cleric_1_hurt.png",
+  "halfling_fighter_1_happy.png",
+  "halfling_fighter_1_hurt.png",
+  "halfling_ranger_1_happy.png",
+  "halfling_ranger_1_hurt.png",
+  "halfling_rogue_1_happy.png",
+  "halfling_rogue_1_hurt.png",
+  "halfling_wizard_1_happy.png",
+  "halfling_wizard_1_hurt.png",
+  "halforc_bard_1_happy.png",
+  "halforc_bard_1_hurt.png",
+  "halforc_cleric_1_happy.png",
+  "halforc_cleric_1_hurt.png",
+  "halforc_fighter_1_happy.png",
+  "halforc_fighter_1_hurt.png",
+  "halforc_ranger_1_happy.png",
+  "halforc_ranger_1_hurt.png",
+  "halforc_rogue_1_happy.png",
+  "halforc_rogue_1_hurt.png",
+  "halforc_wizard_1_happy.png",
+  "halforc_wizard_1_hurt.png",
+  "human_bard_1_desire.png",
+  "human_bard_1_fury.png",
+  "human_bard_1_grief.png",
+  "human_bard_1_happy.png",
+  "human_bard_1_hurt.png",
+  "human_cleric_1_desire.png",
+  "human_cleric_1_fury.png",
+  "human_cleric_1_grief.png",
+  "human_cleric_1_happy.png",
+  "human_cleric_1_hurt.png",
+  "human_fighter_1.png",
+  "human_fighter_1_desire.png",
+  "human_fighter_1_fury.png",
+  "human_fighter_1_grief.png",
+  "human_fighter_1_happy.png",
+  "human_fighter_1_hurt.png",
+  "human_ranger_1_desire.png",
+  "human_ranger_1_fury.png",
+  "human_ranger_1_grief.png",
+  "human_ranger_1_happy.png",
+  "human_ranger_1_hurt.png",
+  "human_rogue_1_desire.png",
+  "human_rogue_1_fury.png",
+  "human_rogue_1_grief.png",
+  "human_rogue_1_happy.png",
+  "human_rogue_1_hurt.png",
+  "human_wizard_1_desire.png",
+  "human_wizard_1_fury.png",
+  "human_wizard_1_grief.png",
+  "human_wizard_1_happy.png",
+  "human_wizard_1_hurt.png",
+  "p_elf_rogue_1.png",
+  "p_human_fighter_1.png",
+  "p_human_fighter_1_happy.png"
+ ],
+ "pool": [
+  {
+   "file": "human_rogue_1.png",
+   "ancestry": "Human",
+   "class": "Rogue",
+   "expressions": {
+    "happy": "human_rogue_1_happy.png",
+    "hurt": "human_rogue_1_hurt.png",
+    "grief": "human_rogue_1_grief.png",
+    "fury": "human_rogue_1_fury.png",
+    "desire": "human_rogue_1_desire.png"
+   }
+  },
+  {
+   "file": "human_wizard_1.png",
+   "ancestry": "Human",
+   "class": "Wizard",
+   "expressions": {
+    "happy": "human_wizard_1_happy.png",
+    "hurt": "human_wizard_1_hurt.png",
+    "grief": "human_wizard_1_grief.png",
+    "fury": "human_wizard_1_fury.png",
+    "desire": "human_wizard_1_desire.png"
+   }
+  },
+  {
+   "file": "human_cleric_1.png",
+   "ancestry": "Human",
+   "class": "Cleric",
+   "expressions": {
+    "happy": "human_cleric_1_happy.png",
+    "hurt": "human_cleric_1_hurt.png",
+    "grief": "human_cleric_1_grief.png",
+    "fury": "human_cleric_1_fury.png",
+    "desire": "human_cleric_1_desire.png"
+   }
+  },
+  {
+   "file": "human_ranger_1.png",
+   "ancestry": "Human",
+   "class": "Ranger",
+   "expressions": {
+    "happy": "human_ranger_1_happy.png",
+    "hurt": "human_ranger_1_hurt.png",
+    "grief": "human_ranger_1_grief.png",
+    "fury": "human_ranger_1_fury.png",
+    "desire": "human_ranger_1_desire.png"
+   }
+  },
+  {
+   "file": "human_bard_1.png",
+   "ancestry": "Human",
+   "class": "Bard",
+   "expressions": {
+    "happy": "human_bard_1_happy.png",
+    "hurt": "human_bard_1_hurt.png",
+    "grief": "human_bard_1_grief.png",
+    "fury": "human_bard_1_fury.png",
+    "desire": "human_bard_1_desire.png"
+   }
+  },
+  {
+   "file": "elf_fighter_1.png",
+   "ancestry": "Elf",
+   "class": "Fighter",
+   "expressions": {
+    "happy": "elf_fighter_1_happy.png",
+    "hurt": "elf_fighter_1_hurt.png",
+    "grief": "elf_fighter_1_grief.png",
+    "fury": "elf_fighter_1_fury.png",
+    "desire": "elf_fighter_1_desire.png"
+   }
+  },
+  {
+   "file": "elf_rogue_1.png",
+   "ancestry": "Elf",
+   "class": "Rogue",
+   "expressions": {
+    "happy": "elf_rogue_1_happy.png",
+    "hurt": "elf_rogue_1_hurt.png",
+    "grief": "elf_rogue_1_grief.png",
+    "fury": "elf_rogue_1_fury.png",
+    "desire": "elf_rogue_1_desire.png"
+   }
+  },
+  {
+   "file": "elf_wizard_1.png",
+   "ancestry": "Elf",
+   "class": "Wizard",
+   "expressions": {
+    "happy": "elf_wizard_1_happy.png",
+    "hurt": "elf_wizard_1_hurt.png",
+    "grief": "elf_wizard_1_grief.png",
+    "fury": "elf_wizard_1_fury.png",
+    "desire": "elf_wizard_1_desire.png"
+   }
+  },
+  {
+   "file": "elf_cleric_1.png",
+   "ancestry": "Elf",
+   "class": "Cleric",
+   "expressions": {
+    "happy": "elf_cleric_1_happy.png",
+    "hurt": "elf_cleric_1_hurt.png",
+    "grief": "elf_cleric_1_grief.png",
+    "fury": "elf_cleric_1_fury.png",
+    "desire": "elf_cleric_1_desire.png"
+   }
+  },
+  {
+   "file": "elf_ranger_1.png",
+   "ancestry": "Elf",
+   "class": "Ranger",
+   "expressions": {
+    "happy": "elf_ranger_1_happy.png",
+    "hurt": "elf_ranger_1_hurt.png",
+    "grief": "elf_ranger_1_grief.png",
+    "fury": "elf_ranger_1_fury.png",
+    "desire": "elf_ranger_1_desire.png"
+   }
+  },
+  {
+   "file": "elf_bard_1.png",
+   "ancestry": "Elf",
+   "class": "Bard",
+   "expressions": {
+    "happy": "elf_bard_1_happy.png",
+    "hurt": "elf_bard_1_hurt.png",
+    "grief": "elf_bard_1_grief.png",
+    "fury": "elf_bard_1_fury.png",
+    "desire": "elf_bard_1_desire.png"
+   }
+  },
+  {
+   "file": "dwarf_fighter_1.png",
+   "ancestry": "Dwarf",
+   "class": "Fighter",
+   "expressions": {
+    "happy": "dwarf_fighter_1_happy.png",
+    "hurt": "dwarf_fighter_1_hurt.png"
+   }
+  },
+  {
+   "file": "dwarf_rogue_1.png",
+   "ancestry": "Dwarf",
+   "class": "Rogue",
+   "expressions": {
+    "happy": "dwarf_rogue_1_happy.png",
+    "hurt": "dwarf_rogue_1_hurt.png"
+   }
+  },
+  {
+   "file": "dwarf_wizard_1.png",
+   "ancestry": "Dwarf",
+   "class": "Wizard",
+   "expressions": {
+    "happy": "dwarf_wizard_1_happy.png",
+    "hurt": "dwarf_wizard_1_hurt.png"
+   }
+  },
+  {
+   "file": "dwarf_cleric_1.png",
+   "ancestry": "Dwarf",
+   "class": "Cleric",
+   "expressions": {
+    "happy": "dwarf_cleric_1_happy.png",
+    "hurt": "dwarf_cleric_1_hurt.png"
+   }
+  },
+  {
+   "file": "dwarf_ranger_1.png",
+   "ancestry": "Dwarf",
+   "class": "Ranger",
+   "expressions": {
+    "happy": "dwarf_ranger_1_happy.png",
+    "hurt": "dwarf_ranger_1_hurt.png"
+   }
+  },
+  {
+   "file": "dwarf_bard_1.png",
+   "ancestry": "Dwarf",
+   "class": "Bard",
+   "expressions": {
+    "happy": "dwarf_bard_1_happy.png",
+    "hurt": "dwarf_bard_1_hurt.png"
+   }
+  },
+  {
+   "file": "halfling_fighter_1.png",
+   "ancestry": "Halfling",
+   "class": "Fighter",
+   "expressions": {
+    "happy": "halfling_fighter_1_happy.png",
+    "hurt": "halfling_fighter_1_hurt.png"
+   }
+  },
+  {
+   "file": "halfling_rogue_1.png",
+   "ancestry": "Halfling",
+   "class": "Rogue",
+   "expressions": {
+    "happy": "halfling_rogue_1_happy.png",
+    "hurt": "halfling_rogue_1_hurt.png"
+   }
+  },
+  {
+   "file": "halfling_wizard_1.png",
+   "ancestry": "Halfling",
+   "class": "Wizard",
+   "expressions": {
+    "happy": "halfling_wizard_1_happy.png",
+    "hurt": "halfling_wizard_1_hurt.png"
+   }
+  },
+  {
+   "file": "halfling_cleric_1.png",
+   "ancestry": "Halfling",
+   "class": "Cleric",
+   "expressions": {
+    "happy": "halfling_cleric_1_happy.png",
+    "hurt": "halfling_cleric_1_hurt.png"
+   }
+  },
+  {
+   "file": "halfling_ranger_1.png",
+   "ancestry": "Halfling",
+   "class": "Ranger",
+   "expressions": {
+    "happy": "halfling_ranger_1_happy.png",
+    "hurt": "halfling_ranger_1_hurt.png"
+   }
+  },
+  {
+   "file": "halfling_bard_1.png",
+   "ancestry": "Halfling",
+   "class": "Bard",
+   "expressions": {
+    "happy": "halfling_bard_1_happy.png",
+    "hurt": "halfling_bard_1_hurt.png"
+   }
+  },
+  {
+   "file": "halforc_fighter_1.png",
+   "ancestry": "Half-Orc",
+   "class": "Fighter",
+   "expressions": {
+    "happy": "halforc_fighter_1_happy.png",
+    "hurt": "halforc_fighter_1_hurt.png"
+   }
+  },
+  {
+   "file": "halforc_rogue_1.png",
+   "ancestry": "Half-Orc",
+   "class": "Rogue",
+   "expressions": {
+    "happy": "halforc_rogue_1_happy.png",
+    "hurt": "halforc_rogue_1_hurt.png"
+   }
+  },
+  {
+   "file": "halforc_wizard_1.png",
+   "ancestry": "Half-Orc",
+   "class": "Wizard",
+   "expressions": {
+    "happy": "halforc_wizard_1_happy.png",
+    "hurt": "halforc_wizard_1_hurt.png"
+   }
+  },
+  {
+   "file": "halforc_cleric_1.png",
+   "ancestry": "Half-Orc",
+   "class": "Cleric",
+   "expressions": {
+    "happy": "halforc_cleric_1_happy.png",
+    "hurt": "halforc_cleric_1_hurt.png"
+   }
+  },
+  {
+   "file": "halforc_ranger_1.png",
+   "ancestry": "Half-Orc",
+   "class": "Ranger",
+   "expressions": {
+    "happy": "halforc_ranger_1_happy.png",
+    "hurt": "halforc_ranger_1_hurt.png"
+   }
+  },
+  {
+   "file": "halforc_bard_1.png",
+   "ancestry": "Half-Orc",
+   "class": "Bard",
+   "expressions": {
+    "happy": "halforc_bard_1_happy.png",
+    "hurt": "halforc_bard_1_hurt.png"
+   }
+  },
+  {
+   "file": "gnome_fighter_1.png",
+   "ancestry": "Gnome",
+   "class": "Fighter",
+   "expressions": {
+    "happy": "gnome_fighter_1_happy.png",
+    "hurt": "gnome_fighter_1_hurt.png"
+   }
+  },
+  {
+   "file": "gnome_rogue_1.png",
+   "ancestry": "Gnome",
+   "class": "Rogue",
+   "expressions": {
+    "happy": "gnome_rogue_1_happy.png",
+    "hurt": "gnome_rogue_1_hurt.png"
+   }
+  },
+  {
+   "file": "gnome_wizard_1.png",
+   "ancestry": "Gnome",
+   "class": "Wizard",
+   "expressions": {
+    "happy": "gnome_wizard_1_happy.png",
+    "hurt": "gnome_wizard_1_hurt.png"
+   }
+  },
+  {
+   "file": "gnome_cleric_1.png",
+   "ancestry": "Gnome",
+   "class": "Cleric",
+   "expressions": {
+    "happy": "gnome_cleric_1_happy.png",
+    "hurt": "gnome_cleric_1_hurt.png"
+   }
+  },
+  {
+   "file": "gnome_ranger_1.png",
+   "ancestry": "Gnome",
+   "class": "Ranger",
+   "expressions": {
+    "happy": "gnome_ranger_1_happy.png",
+    "hurt": "gnome_ranger_1_hurt.png"
+   }
+  },
+  {
+   "file": "gnome_bard_1.png",
+   "ancestry": "Gnome",
+   "class": "Bard",
+   "expressions": {
+    "happy": "gnome_bard_1_happy.png",
+    "hurt": "gnome_bard_1_hurt.png"
+   }
+  },
+  {
+   "file": "human_fighter_1.png",
+   "ancestry": "Human",
+   "class": "Fighter",
+   "expressions": {
+    "happy": "human_fighter_1_happy.png",
+    "hurt": "human_fighter_1_hurt.png",
+    "grief": "human_fighter_1_grief.png",
+    "fury": "human_fighter_1_fury.png",
+    "desire": "human_fighter_1_desire.png"
+   }
+  },
+  {
+   "file": "w_dwarf_bard_1.webp",
+   "ancestry": "Dwarf",
+   "class": "Bard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_dwarf_cleric_1.webp",
+   "ancestry": "Dwarf",
+   "class": "Cleric",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_dwarf_fighter_1.webp",
+   "ancestry": "Dwarf",
+   "class": "Fighter",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_dwarf_ranger_1.webp",
+   "ancestry": "Dwarf",
+   "class": "Ranger",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_dwarf_rogue_1.webp",
+   "ancestry": "Dwarf",
+   "class": "Rogue",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_dwarf_wizard_1.webp",
+   "ancestry": "Dwarf",
+   "class": "Wizard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_elf_bard_1.webp",
+   "ancestry": "Elf",
+   "class": "Bard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_elf_cleric_1.webp",
+   "ancestry": "Elf",
+   "class": "Cleric",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_elf_fighter_1.webp",
+   "ancestry": "Elf",
+   "class": "Fighter",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_elf_ranger_1.webp",
+   "ancestry": "Elf",
+   "class": "Ranger",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_elf_rogue_1.webp",
+   "ancestry": "Elf",
+   "class": "Rogue",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_elf_wizard_1.webp",
+   "ancestry": "Elf",
+   "class": "Wizard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_gnome_bard_1.webp",
+   "ancestry": "Gnome",
+   "class": "Bard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_gnome_cleric_1.webp",
+   "ancestry": "Gnome",
+   "class": "Cleric",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_gnome_fighter_1.webp",
+   "ancestry": "Gnome",
+   "class": "Fighter",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_gnome_ranger_1.webp",
+   "ancestry": "Gnome",
+   "class": "Ranger",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_gnome_rogue_1.webp",
+   "ancestry": "Gnome",
+   "class": "Rogue",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_gnome_wizard_1.webp",
+   "ancestry": "Gnome",
+   "class": "Wizard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halfling_bard_1.webp",
+   "ancestry": "Halfling",
+   "class": "Bard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halfling_cleric_1.webp",
+   "ancestry": "Halfling",
+   "class": "Cleric",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halfling_fighter_1.webp",
+   "ancestry": "Halfling",
+   "class": "Fighter",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halfling_ranger_1.webp",
+   "ancestry": "Halfling",
+   "class": "Ranger",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halfling_rogue_1.webp",
+   "ancestry": "Halfling",
+   "class": "Rogue",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halfling_wizard_1.webp",
+   "ancestry": "Halfling",
+   "class": "Wizard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halforc_bard_1.webp",
+   "ancestry": "Half-Orc",
+   "class": "Bard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halforc_cleric_1.webp",
+   "ancestry": "Half-Orc",
+   "class": "Cleric",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halforc_fighter_1.webp",
+   "ancestry": "Half-Orc",
+   "class": "Fighter",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halforc_ranger_1.webp",
+   "ancestry": "Half-Orc",
+   "class": "Ranger",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halforc_rogue_1.webp",
+   "ancestry": "Half-Orc",
+   "class": "Rogue",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_halforc_wizard_1.webp",
+   "ancestry": "Half-Orc",
+   "class": "Wizard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_human_bard_1.webp",
+   "ancestry": "Human",
+   "class": "Bard",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_human_cleric_1.webp",
+   "ancestry": "Human",
+   "class": "Cleric",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_human_fighter_1.webp",
+   "ancestry": "Human",
+   "class": "Fighter",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_human_ranger_1.webp",
+   "ancestry": "Human",
+   "class": "Ranger",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_human_rogue_1.webp",
+   "ancestry": "Human",
+   "class": "Rogue",
+   "pack": "wildkin"
+  },
+  {
+   "file": "w_human_wizard_1.webp",
+   "ancestry": "Human",
+   "class": "Wizard",
+   "pack": "wildkin"
+  }
+ ]
+}

@@ -1,0 +1,124 @@
+/* Rules browser layout. Extends assets/site.css — tokens come from there. */
+
+.rules-shell { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
+@media (max-width: 60rem) { .rules-shell { grid-template-columns: minmax(0, 1fr); } }
+
+.rules-head { padding: 2.5rem 0 1.5rem; }
+.rules-head h1 { margin: 0 0 .3rem; font-size: clamp(1.7rem, 4.5vw, 2.4rem); letter-spacing: -.02em; }
+.rules-head .lede { margin: 0; color: var(--text-dim); }
+.rules-head .lede a { color: var(--gold); }
+
+/* ---------------------------------------------------------------- tabs */
+
+#tabs {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin: 0 0 1rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.tab {
+  display: inline-flex; align-items: baseline; gap: .45rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--text-dim);
+  padding: .38rem .85rem; font-size: .88rem; font-weight: 600;
+  font-family: inherit; cursor: pointer;
+}
+.tab:hover { color: var(--text); border-color: #4a3c5c; }
+.tab.on { background: var(--gold); border-color: var(--gold); color: #241804; }
+.tab-count { font-size: .76rem; opacity: .7; font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- search + filters */
+
+#search {
+  width: 100%; font: inherit; font-size: 1rem;
+  padding: .7rem .9rem; border-radius: var(--radius-sm);
+  border: 1px solid var(--line); background: var(--ink-2); color: var(--text);
+}
+#search::placeholder { color: var(--text-faint); }
+#search:focus { border-color: var(--gold); outline: none; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
+.chip {
+  border: 1px solid var(--line-soft); border-radius: 999px;
+  background: none; color: var(--text-faint);
+  padding: .22rem .6rem; font-size: .78rem; font-family: inherit; cursor: pointer;
+}
+.chip:hover { color: var(--text); border-color: var(--line); }
+.chip.on { background: var(--surface-2); border-color: var(--violet); color: var(--violet); }
+
+#count { display: block; margin: 1rem 0 .5rem; font-size: .82rem; color: var(--text-faint);
+  font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- list */
+
+#list { display: flex; flex-direction: column; gap: .3rem; }
+
+.row {
+  display: flex; flex-direction: column; gap: .18rem;
+  width: 100%; text-align: left; font: inherit; cursor: pointer;
+  border: 1px solid transparent; border-left: 2px solid var(--line);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: none; color: var(--text);
+  padding: .6rem .8rem;
+}
+.row:hover { background: var(--ink-2); border-left-color: var(--gold); }
+.row-head { display: flex; align-items: baseline; gap: .6rem; justify-content: space-between; }
+.row-name { font-weight: 600; }
+.row-level { font-size: .76rem; color: var(--gold); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.row-sub { font-size: .8rem; color: var(--text-faint); }
+
+.sentinel { height: 1px; }
+.empty, .muted { color: var(--text-faint); font-size: .92rem; padding: .5rem 0; }
+
+/* ---------------------------------------------------------------- detail */
+
+#detail {
+  position: sticky; top: 4.75rem;
+  max-height: calc(100vh - 6.5rem); overflow-y: auto;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--surface), var(--ink-2));
+  padding: 1.5rem 1.6rem 2rem;
+}
+#detail:not(.open) { display: none; }
+#detail h2 { margin: 0; font-size: 1.35rem; letter-spacing: -.01em; }
+#detail h3 { margin: 1.4rem 0 .3rem; font-size: .82rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--gold); }
+#detail p { margin: 0 0 .85rem; color: var(--text-dim); }
+#detail p.source { margin-top: 1.5rem; font-size: .8rem; color: var(--text-faint); }
+
+.detail-head { display: flex; align-items: baseline; gap: .75rem; justify-content: space-between;
+  padding-right: 2rem; margin-bottom: .6rem; }
+.detail-close {
+  float: right; margin: -.4rem -.5rem 0 0;
+  background: none; border: none; color: var(--text-faint);
+  font-size: 1rem; cursor: pointer; padding: .35rem .5rem; font-family: inherit;
+}
+.detail-close:hover { color: var(--text); }
+
+.trait-row { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: 1rem; }
+.trait {
+  font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 600;
+  border: 1px solid var(--line); border-radius: 4px;
+  padding: .16rem .45rem; color: var(--text-faint); background: var(--ink);
+}
+
+dl.meta {
+  display: grid; grid-template-columns: auto 1fr; gap: .3rem .9rem;
+  margin: 0 0 1.25rem; padding: .85rem 1rem;
+  border: 1px solid var(--line-soft); border-radius: var(--radius-sm); background: var(--ink);
+  font-size: .9rem;
+}
+dl.meta dt { color: var(--text-faint); }
+dl.meta dd { margin: 0; color: var(--text); }
+
+/* On a narrow screen the detail panel becomes a sheet over the list rather than a second column. */
+@media (max-width: 60rem) {
+  #detail.open {
+    position: fixed; inset: auto 0 0 0; top: 3.75rem; z-index: 20;
+    max-height: none; border-radius: 0; border-left: none; border-right: none;
+  }
+}
+
+.rules-foot-note {
+  margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line-soft);
+  color: var(--text-faint); font-size: .88rem;
+}

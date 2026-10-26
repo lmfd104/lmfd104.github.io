@@ -66,7 +66,13 @@
   "use strict";
 
   var API = "https://vuvjgucbknkxeexvcpoo.supabase.co/functions/v1/game-page";
-  var STORE = "https://play.google.com/store/apps/details?id=com.flagstatspro";
+  var PLAY_STORE = "https://play.google.com/store/apps/details?id=com.flagstatspro";
+  var APP_STORE = "https://apps.apple.com/app/id6787842567";
+  // iPhone/iPad visitors get the App Store; everyone else gets Play. iPadOS reports a Mac
+  // user agent, so a touch-capable "Macintosh" counts as an iPad too.
+  var IS_APPLE_MOBILE = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  var STORE = IS_APPLE_MOBILE ? APP_STORE : PLAY_STORE;
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   var root = document.getElementById("root");
 

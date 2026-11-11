@@ -182,7 +182,7 @@ function fmtShort(s) { return parse(s).toLocaleDateString(undefined, { month: 'n
 const todayISO = () => iso(new Date());
 
 function weekOf(s) {
-  const diff = Math.floor((parse(s) - parse(data.settings.start)) / 864e5);
+  const diff = Math.round((parse(s) - parse(data.settings.start)) / 864e5);
   return Math.floor(diff / 7) + 1; // may be <1 or >12
 }
 function ctx(s) {
@@ -214,7 +214,8 @@ function intervals(c) {
 // Build the workout for a date. Exercise types: lift (weight+reps per set), rounds (checkbox per round), score (free text)
 const WORKOUTS = {
   lower: 'Lower-Body Strength', upper: 'Upper-Body Strength', intervals: 'Intervals + Core',
-  hinge: 'Hinge + Full Body', metcon: 'Metcon', zone2: 'Engine (Zone 2)', rest: 'Rest Day'
+  hinge: 'Hinge + Full Body', metcon: 'Metcon', zone2: 'Engine (Zone 2)', rest: 'Rest Day',
+  base1: 'Baseline Day 1 (Lower + Engine)', base2: 'Baseline Day 2 (Upper + Hinge)'
 };
 const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const monFirst = d => (d + 6) % 7;
@@ -231,7 +232,15 @@ function schedule() {
   days.forEach((d, i) => { map[d] = order[i] || 'zone2'; });
   return map;
 }
-function keyFor(s) { const L = data.logs[s]; if (L && L.workout) return L.workout; return schedule()[parse(s).getDay()] || 'rest'; }
+const daysToStart = s => Math.round((parse(data.settings.start) - parse(s)) / 864e5);
+function keyFor(s) { const L = data.logs[s]; return (L && L.workout) || defaultKey(s); }
+function defaultKey(s) {
+  const off = daysToStart(s);
+  if (off > 0) return off === 4 ? 'base1' : off === 3 ? 'base2' : 'rest'; // prep week: Thu + Fri before a Monday start
+  return schedule()[parse(s).getDay()] || 'rest';
+}
+const e1rm = (w, r) => { w = parseFloat(w); r = parseInt(r, 10); return w > 0 && r >= 1 && r <= 12 ? r5(w * (1 + r / 30)) : 0; };
+function ramp(base) { return `bar×10 → ${r5(base * .45)}×5 → ${r5(base * .6)}×3 → ${r5(base * .7)}×2 → ${r5(base * .8)}×1 → hard set of 5`; }
 
 function workoutFor(s) {
   const c = ctx(s); const S = data.settings; const key = keyFor(s);
@@ -272,6 +281,18 @@ function workoutFor(s) {
       { id: 'pullup', type: 'lift', name: 'Pull-ups (assisted if needed)', presc: `${dl(c,3)}×6–8`, sets: dl(c,3), reps: 8, note: 'Log assist weight as negative, e.g. -50' },
       { id: 'carry', type: 'lift', name: 'Farmer carry', presc: `${dl(c,4)}×40 m`, sets: dl(c,4), reps: 40, note: 'Heavy DBs per hand. Reps column = meters. Sled push if available.' },
       { id: 'fin-fri', type: 'rounds', name: 'Finisher: 8-min EMOM', presc: '8 rounds', rounds: 8, note: 'Odd min: 8 burpees · Even min: 12-cal bike', timer: { mode: 'emom', mins: 8 } },
+      cool] };
+    case 'base1': return { title: 'Baseline Day 1', sub: 'Lower + Engine', c, ex: [warm,
+      { id: 'bt-body', type: 'test', name: 'Weigh-in + waist', presc: 'first thing', keys: [['weight', 'Weight (lb)'], ['waist', 'Waist (in)']], note: 'Morning, before eating. Waist at the belly button, relaxed, tape level.' },
+      { id: 'bt-squat', type: 'rm', lift: 'squat', name: 'Squat: hard set of 5', presc: '1 rep in reserve', note: 'Ramp: ' + ramp(S.squat) + '. Rest 2–3 min on the heavy jumps. Stop when you could do only 1 more clean rep. No grinding.' },
+      { id: 'bt-pushups', type: 'test', name: 'Max push-ups in 2 minutes', presc: '2:00', keys: [['pushups', 'Push-ups']], note: 'Rest 3–5 min after squats. Chest to fist height, full lockout. Rest only at the top. Count only good reps.', timer: { mode: 'amrap', mins: 2 } },
+      { id: 'bt-row', type: 'test', name: '2,000 m row', presc: 'for time', keys: [['row2k', 'Time (m:ss)']], note: 'Damper 4–6. Controlled first 500 m, build through the middle, empty the tank on the last 500. Note your average split in Notes.', timer: { mode: 'stopwatch' } },
+      cool] };
+    case 'base2': return { title: 'Baseline Day 2', sub: 'Upper + Hinge', c, ex: [warm,
+      { id: 'bt-bench', type: 'rm', lift: 'bench', name: 'Bench: hard set of 5', presc: '1 rep in reserve', note: 'Ramp: ' + ramp(S.bench) + '. Use a spotter or safeties.' },
+      { id: 'bt-deadlift', type: 'rm', lift: 'deadlift', name: 'Deadlift: hard set of 5', presc: '1–2 reps in reserve', note: 'Ramp: ' + ramp(S.deadlift) + '. Trap bar or conventional, same one at retest. Stop at a smooth 5; deadlift form fades fast when tired.' },
+      { id: 'bt-pullups', type: 'test', name: 'Max strict pull-ups', presc: '1 set', keys: [['pullups', 'Reps (note assist weight)']], note: 'Dead hang to chin over bar. If assisted, write the assist weight, e.g. "8 @ -60", and use the same next time.' },
+      { id: 'bt-z2', type: 'rounds', name: 'Optional: 8 min easy bike', presc: 'Zone 2 feel', rounds: 1, note: 'Learn what conversational pace feels like. You will use it all program.' },
       cool] };
     case 'zone2': return { title: 'Engine (Zone 2)', c, ex: [warm,
       { id: 'z2', type: 'rounds', name: 'Zone 2 — 30 min', presc: '3 × 10 min', rounds: 3, note: '10 min row → 10 min bike → 10 min incline treadmill (12%, ~3.0 mph). Conversational pace, ~105–125 bpm.', timer: { mode: 'intervals', work: 600, rest: 0, rounds: 3 } },
@@ -314,16 +335,17 @@ function renderToday() {
   document.getElementById('dateLabel').textContent = (curDate === todayISO() ? 'Today · ' : '') + fmtDate(curDate);
   const w = workoutFor(curDate); const log = getLog(curDate); const c = w.c;
   let h = '';
-  if (c.raw < 1) h += `<div class="banner">Your program starts <b>${fmtDate(data.settings.start)}</b>. Showing Week 1 for preview. Change the start date in Settings.</div>`;
-  if (c.raw === 1 && !data.tests.start) h += `<div class="banner">Week 1: record your baseline tests in <b>Progress</b> (2k row, 2-min push-ups, weight, waist).</div>`;
+  if (c.raw < 1) h += `<div class="banner"><b>Prep week.</b> Your 12 weeks start ${fmtDate(data.settings.start)}. Baseline days are ${fmtDate(addDays(data.settings.start, -4))} and ${fmtDate(addDays(data.settings.start, -3))}. Use the menu below to move them to another day.</div>`;
+  if (c.raw >= 1 && c.raw <= 2 && !(data.tests.start && data.tests.start.squat)) h += `<div class="banner">No baseline yet? Pick "Baseline Day 1" or "Day 2" in the menu below to swap one in.</div>`;
   if (c.raw === 12 && !data.tests.end) h += `<div class="banner">Final week: record your end tests in <b>Progress</b> and compare.</div>`;
   if (c.deload) h += `<div class="banner"><b>Deload week.</b> Fewer sets, ~10% lighter. Conditioning at ~80% effort. Recover so you can push again.</div>`;
-  const sched = schedule()[c.dow] || 'rest'; const cur = keyFor(curDate);
+  const sched = defaultKey(curDate); const cur = keyFor(curDate);
   h += `<div class="card"><label class="f">Workout for this day<select id="wkSel">
     <option value="">Scheduled: ${esc(WORKOUTS[sched])}</option>
     ${Object.keys(WORKOUTS).filter(k => k !== sched).map(k => `<option value="${k}" ${log.workout === k ? 'selected' : ''}>Swap to: ${esc(WORKOUTS[k])}</option>`).join('')}
     </select></label><div class="muted" style="margin-top:6px">Missed a day or the gym is packed? Swap in a different workout. Your logs are saved per day.</div></div>`;
-  h += `<div class="card"><h2>${esc(w.title)}</h2><div class="muted">Week ${c.week} · Phase ${c.phase}${w.rest ? ' · Recover so you can push next session' : ' · 40 min'}</div>`;
+  const subLine = w.sub ? `${esc(w.sub)} · ~40 min · Do these in the same order every time you retest` : `Week ${c.week} · Phase ${c.phase}${w.rest ? ' · Recover so you can push next session' : ' · 40 min'}`;
+  h += `<div class="card"><h2>${esc(w.title)}</h2><div class="muted">${subLine}</div>`;
   for (const e of w.ex) {
     const le = log.ex[e.id] || {};
     const last = lastFor(e.id, curDate);
@@ -343,6 +365,15 @@ function renderToday() {
         h += `<button class="chk ${on ? 'on' : ''}" data-round="${e.id}" data-i="${i}" data-n="${e.rounds}">${e.rounds === 1 ? (on ? '✓ Done' : 'Done') : i + 1}</button>`;
       }
       h += `</div>`;
+    } else if (e.type === 'rm') {
+      const r = le.rm || {}; const est = e1rm(r.w, r.r);
+      h += `<div class="grid3" style="margin-top:8px"><label class="f">Weight (lb)<input inputmode="decimal" data-rm="${e.id}" data-k="w" value="${esc(r.w)}"></label>
+        <label class="f">Reps<input inputmode="numeric" data-rm="${e.id}" data-k="r" value="${esc(r.r)}"></label>
+        <div class="f">Est. max<div class="presc" style="padding-top:10px" id="est-${e.id}">${est ? est + ' lb' : '–'}</div></div></div>
+        <button class="small" style="margin-top:8px" data-apply="${e.id}" data-lift="${e.lift}">Use as my ${e.lift} working number (now ${data.settings[e.lift]})</button>`;
+    } else if (e.type === 'test') {
+      const T0 = data.tests.start || {};
+      h += `<div class="${e.keys.length > 1 ? 'grid2' : ''}" style="margin-top:8px">${e.keys.map(([k, l]) => `<label class="f">${esc(l)}<input data-test="${k}" value="${esc(T0[k])}"></label>`).join('')}</div><div class="last">Saved to your baseline in Progress.</div>`;
     } else if (e.type === 'score') {
       h += `<input style="margin-top:8px" placeholder="Score / result" data-score="${e.id}" value="${esc(le.score)}">`;
       if (last) h += `<div class="last">Last (${fmtShort(last.d)}): ${esc(last.text)}</div>`;
@@ -359,6 +390,27 @@ function renderToday() {
     const L = ensureLog(curDate); const id = inp.dataset.ex;
     const e = L.ex[id] = L.ex[id] || {}; e.sets = e.sets || [];
     const i = +inp.dataset.i; e.sets[i] = e.sets[i] || {}; e.sets[i][inp.dataset.k] = inp.value.trim();
+    save();
+  }));
+  body.querySelectorAll('input[data-rm]').forEach(inp => inp.addEventListener('input', () => {
+    const L = ensureLog(curDate); const e = L.ex[inp.dataset.rm] = L.ex[inp.dataset.rm] || {};
+    e.rm = e.rm || {}; e.rm[inp.dataset.k] = inp.value.trim(); save();
+    const est = e1rm(e.rm.w, e.rm.r); document.getElementById('est-' + inp.dataset.rm).textContent = est ? est + ' lb' : '–';
+  }));
+  body.querySelectorAll('[data-apply]').forEach(b => b.addEventListener('click', () => {
+    const e = (getLog(curDate).ex[b.dataset.apply] || {}).rm || {}; const est = e1rm(e.w, e.r);
+    if (!est) return toast('Enter weight and reps (1–12) first');
+    const lift = b.dataset.lift; data.settings[lift] = est;
+    (data.tests.start = data.tests.start || {})[lift] = String(est); save(); renderToday();
+    toast(lift[0].toUpperCase() + lift.slice(1) + ' working number set to ' + est + ' lb');
+  }));
+  body.querySelectorAll('input[data-test]').forEach(inp => inp.addEventListener('input', () => {
+    const k = inp.dataset.test, v = inp.value.trim(); (data.tests.start = data.tests.start || {})[k] = v;
+    if (k === 'weight' || k === 'waist') {
+      let wi = data.weighins.find(x => x.date === curDate);
+      if (!wi) { wi = { date: curDate, weight: '', waist: '' }; data.weighins.push(wi); }
+      wi[k] = v; data.weighins = data.weighins.filter(x => x.weight || x.waist);
+    }
     save();
   }));
   body.querySelectorAll('input[data-score]').forEach(inp => inp.addEventListener('input', () => {
@@ -382,9 +434,16 @@ function renderToday() {
 
 function renderPlan() {
   const start = data.settings.start; const t = todayISO();
-  const SHORT = { lower: 'Legs', upper: 'Upper', intervals: 'Intvl', hinge: 'Hinge', metcon: 'Metcon', zone2: 'Zone 2', rest: 'Rest' };
+  const SHORT = { lower: 'Legs', upper: 'Upper', intervals: 'Intvl', hinge: 'Hinge', metcon: 'Metcon', zone2: 'Zone 2', rest: 'Rest', base1: 'Test 1', base2: 'Test 2' };
   let h = `<div class="card"><h2>12-week calendar</h2><div class="muted">Tap a day to open it. Green = completed. Weeks 4 & 8 are deloads.</div></div>`;
   const phases = [[1, 'Phase 1 — Base', 'Squat/bench 4×8 · Row 1:00 on/1:00 off'], [5, 'Phase 2 — Build', 'Squat/bench 5×5 · Row 1:30 on/1:00 off'], [9, 'Phase 3 — Peak', 'Squat/bench 5×3 · Bike 0:30 all-out/0:45 easy']];
+  h += `<div class="card"><h3>Prep week: baselines</h3><div class="muted" style="margin-bottom:8px">Two test days to set your starting numbers. Everything else is rest.</div><div class="week">`;
+  for (let d = -7; d < 0; d++) {
+    const ds = addDays(start, d); const L = data.logs[ds]; const k = keyFor(ds);
+    const label = parse(ds).toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3);
+    h += `<div class="day ${L && L.done ? 'done' : ''} ${ds === t ? 'today' : ''} ${k === 'rest' ? 'restday' : ''}" data-go="${ds}">${label} ${fmtShort(ds)}<br><b>${SHORT[k]}</b></div>`;
+  }
+  h += `</div></div>`;
   for (const [w0, title, sub] of phases) {
     h += `<div class="card"><h3>${title}</h3><div class="muted" style="margin-bottom:8px">${sub}</div>`;
     for (let w = w0; w < w0 + 4; w++) {
@@ -457,7 +516,7 @@ function renderProgress() {
     </div>
     <div class="card"><h3>Benchmark tests (Week 1 vs Week 12)</h3>
       <table><tr><th>Test</th><th>Start</th><th>End</th></tr>
-      ${[['row2k', '2,000 m row (m:ss)'], ['pushups', 'Max push-ups in 2 min'], ['weight', 'Body weight (lb)'], ['waist', 'Waist (in)']].map(([k, l]) =>
+      ${[['squat', 'Squat est. max (lb)'], ['bench', 'Bench est. max (lb)'], ['deadlift', 'Deadlift est. max (lb)'], ['row2k', '2,000 m row (m:ss)'], ['pushups', 'Max push-ups in 2 min'], ['pullups', 'Max pull-ups'], ['weight', 'Body weight (lb)'], ['waist', 'Waist (in)']].map(([k, l]) =>
         `<tr><td>${l}</td><td><input data-test="start" data-k="${k}" value="${esc(ts[k])}"></td><td><input data-test="end" data-k="${k}" value="${esc(te[k])}"></td></tr>`).join('')}
       </table></div>
     <div class="card"><h3>Lift top sets</h3>

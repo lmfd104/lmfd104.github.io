@@ -74,6 +74,8 @@
   th { color: var(--muted); font-weight: 600; font-size: 13px; }
   .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
   .day { text-align: center; padding: 6px 2px; border-radius: 8px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: var(--card); }
+  .day.restday { opacity: .55; }
+  .day b { font-size: 11px; }
   .day.done { background: var(--good); border-color: var(--good); color: #fff; }
   .day.today { outline: 2px solid var(--accent); }
   .timer-display { font-size: 72px; font-weight: 800; text-align: center; font-variant-numeric: tabular-nums; line-height: 1.1; }
@@ -159,7 +161,7 @@
 /* ---------- Storage ---------- */
 const KEY = 'twelveWeekTraining.v1';
 const defaultData = () => ({
-  settings: { start: nextMonday(new Date()), squat: 200, bench: 180, deadlift: 225, theme: 'auto' },
+  settings: { start: nextMonday(new Date()), squat: 200, bench: 180, deadlift: 225, theme: 'auto', days: [1, 2, 3, 4, 5] },
   logs: {},       // { 'YYYY-MM-DD': { ex: {id: {sets:[{w,r}], rounds:[bool], score:''}}, notes:'', done:false } }
   weighins: [],   // [{date, weight, waist}]
   tests: {}       // { start: {row2k, pushups, weight, waist}, end: {...} }
@@ -210,26 +212,47 @@ function intervals(c) {
 }
 
 // Build the workout for a date. Exercise types: lift (weight+reps per set), rounds (checkbox per round), score (free text)
+const WORKOUTS = {
+  lower: 'Lower-Body Strength', upper: 'Upper-Body Strength', intervals: 'Intervals + Core',
+  hinge: 'Hinge + Full Body', metcon: 'Metcon', zone2: 'Engine (Zone 2)', rest: 'Rest Day'
+};
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const monFirst = d => (d + 6) % 7;
+// Workouts are assigned, in this order, to the training days you pick.
+function orderFor(n) {
+  if (n <= 3) return ['lower', 'upper', 'metcon'];
+  if (n === 4) return ['lower', 'upper', 'hinge', 'metcon'];
+  if (n === 5) return ['lower', 'upper', 'intervals', 'hinge', 'metcon'];
+  return ['lower', 'upper', 'intervals', 'hinge', 'metcon', 'zone2'];
+}
+function schedule() {
+  const days = [...(data.settings.days || [])].sort((a, b) => monFirst(a) - monFirst(b));
+  const order = orderFor(days.length); const map = {};
+  days.forEach((d, i) => { map[d] = order[i] || 'zone2'; });
+  return map;
+}
+function keyFor(s) { const L = data.logs[s]; if (L && L.workout) return L.workout; return schedule()[parse(s).getDay()] || 'rest'; }
+
 function workoutFor(s) {
-  const c = ctx(s); const S = data.settings;
+  const c = ctx(s); const S = data.settings; const key = keyFor(s);
   const rest = c.phase === 1 ? '' : c.phase === 2 ? ' (rest −15s)' : ' (rest −30s)';
   const warm = { id: 'warmup', type: 'rounds', name: 'Warm-up', presc: '5 min', rounds: 1, note: '3 min easy row/bike + 10 air squats, 10 arm circles, 5 inchworms, 10 glute bridges' };
   const cool = { id: 'cooldown', type: 'rounds', name: 'Cool-down', presc: '2 min', rounds: 1, note: 'Easy walk + stretch hips, hamstrings, chest' };
-  switch (c.dow) {
-    case 1: { const m = mainLift(c, S.squat); return { title: 'Lower-Body Strength', c, ex: [warm,
+  switch (key) {
+    case 'lower': { const m = mainLift(c, S.squat); return { title: 'Lower-Body Strength', c, ex: [warm,
       { id: 'squat', type: 'lift', name: 'Back squat (or hack squat)', presc: `${m.sets}×${m.reps} @ ${m.w} lb`, sets: m.sets, w: m.w, reps: m.reps, note: 'Rest 2 min' + rest },
       { id: 'rdl', type: 'lift', name: 'DB Romanian deadlift', presc: `${dl(c,3)}×10`, sets: dl(c,3), reps: 10, note: 'Superset with walking lunges, rest 60s' },
       { id: 'lunge', type: 'lift', name: 'Walking lunges', presc: `${dl(c,3)}×10/leg`, sets: dl(c,3), reps: 10 },
       { id: 'legpress', type: 'lift', name: 'Leg press', presc: `${dl(c,3)}×12`, sets: dl(c,3), reps: 12, note: 'Rest 60s' },
       { id: 'fin-mon', type: 'rounds', name: 'Finisher: 8-min EMOM', presc: '8 rounds', rounds: 8, note: 'Odd min: 12-cal bike · Even min: 15 KB swings', timer: { mode: 'emom', mins: 8 } },
       cool] }; }
-    case 2: { const iv = intervals(c); return { title: 'Intervals + Core', c, ex: [warm,
+    case 'intervals': { const iv = intervals(c); return { title: 'Intervals + Core', c, ex: [warm,
       { id: 'intervals', type: 'rounds', name: iv.name, presc: iv.presc, rounds: iv.rounds, note: iv.note,
         timer: c.phase === 1 ? { mode: 'intervals', work: 60, rest: 60, rounds: iv.rounds } : c.phase === 2 ? { mode: 'intervals', work: 90, rest: 60, rounds: iv.rounds } : { mode: 'intervals', work: 30, rest: 45, rounds: iv.rounds } },
       { id: 'core-tue', type: 'rounds', name: 'Core circuit', presc: `${dl(c,3)} rounds`, rounds: dl(c,3), note: '45s plank · 12/side cable woodchop · 10/side dead bug' },
       { id: 'iv-score', type: 'score', name: 'Interval result', presc: 'log it', note: 'e.g. avg 500m split, or total calories' },
       cool] }; }
-    case 3: { const m = mainLift(c, S.bench); return { title: 'Upper-Body Strength', c, ex: [warm,
+    case 'upper': { const m = mainLift(c, S.bench); return { title: 'Upper-Body Strength', c, ex: [warm,
       { id: 'bench', type: 'lift', name: 'Bench press', presc: `${m.sets}×${m.reps} @ ${m.w} lb`, sets: m.sets, w: m.w, reps: m.reps, note: 'Rest 2 min' + rest },
       { id: 'incline', type: 'lift', name: 'Incline DB press', presc: `${dl(c,3)}×10`, sets: dl(c,3), reps: 10, note: 'Superset with lat pulldown' },
       { id: 'pulldown', type: 'lift', name: 'Lat pulldown', presc: `${dl(c,3)}×10`, sets: dl(c,3), reps: 10 },
@@ -239,25 +262,25 @@ function workoutFor(s) {
       { id: 'pushdown', type: 'lift', name: 'Rope pushdown', presc: `${dl(c,2)}×12`, sets: dl(c,2), reps: 12 },
       { id: 'fin-wed', type: 'score', name: 'Finisher: 5-min AMRAP', presc: 'rounds', note: '10 push-ups + 10 sit-ups. Log rounds + reps.', timer: { mode: 'amrap', mins: 5 } },
       cool] }; }
-    case 4: { const A = c.week % 2 === 1; return { title: 'Metcon ' + (A ? 'A' : 'B'), c, ex: [warm,
+    case 'metcon': { const A = c.week % 2 === 1; return { title: 'Metcon ' + (A ? 'A' : 'B'), c, ex: [warm,
       A ? { id: 'metcon-a', type: 'score', name: 'Metcon A: 20-min AMRAP', presc: c.deload ? '15 min @ 80%' : '20 min', note: '10 KB swings · 10 box step-ups · 10 DB thrusters · 10-cal row. Log rounds + reps.', timer: { mode: 'amrap', mins: c.deload ? 15 : 20 } }
         : { id: 'metcon-b', type: 'score', name: 'Metcon B: For time', presc: c.deload ? '25-min cap @ 80%' : '25-min cap', note: '40-cal bike · 30 goblet squats · 30 push-ups · 20 DB snatches · 10 burpees · 40-cal row. Log your time.', timer: { mode: 'stopwatch' } },
       cool] }; }
-    case 5: return { title: 'Hinge + Full Body', c, ex: [warm,
+    case 'hinge': return { title: 'Hinge + Full Body', c, ex: [warm,
       { id: 'deadlift', type: 'lift', name: 'Deadlift (trap bar or conventional)', presc: `${dl(c,4)}×6 @ ~${c.deload ? r5(S.deadlift * .75) : r5(S.deadlift * (c.phase === 1 ? .82 : c.phase === 2 ? .88 : .93))} lb`, sets: dl(c,4), reps: 6, note: 'Rest 2 min. Update your deadlift working number in Settings as it climbs.' },
       { id: 'bss', type: 'lift', name: 'Bulgarian split squat', presc: `${dl(c,3)}×8/leg`, sets: dl(c,3), reps: 8, note: 'Superset with pull-ups' },
       { id: 'pullup', type: 'lift', name: 'Pull-ups (assisted if needed)', presc: `${dl(c,3)}×6–8`, sets: dl(c,3), reps: 8, note: 'Log assist weight as negative, e.g. -50' },
       { id: 'carry', type: 'lift', name: 'Farmer carry', presc: `${dl(c,4)}×40 m`, sets: dl(c,4), reps: 40, note: 'Heavy DBs per hand. Reps column = meters. Sled push if available.' },
       { id: 'fin-fri', type: 'rounds', name: 'Finisher: 8-min EMOM', presc: '8 rounds', rounds: 8, note: 'Odd min: 8 burpees · Even min: 12-cal bike', timer: { mode: 'emom', mins: 8 } },
       cool] };
-    case 6: return { title: 'Engine (Zone 2)', c, ex: [warm,
+    case 'zone2': return { title: 'Engine (Zone 2)', c, ex: [warm,
       { id: 'z2', type: 'rounds', name: 'Zone 2 — 30 min', presc: '3 × 10 min', rounds: 3, note: '10 min row → 10 min bike → 10 min incline treadmill (12%, ~3.0 mph). Conversational pace, ~105–125 bpm.', timer: { mode: 'intervals', work: 600, rest: 0, rounds: 3 } },
       { id: 'core-sat', type: 'rounds', name: 'Core — 5 min', presc: '2 rounds', rounds: 2, note: '30s side plank/side · 15 hanging knee raises · 20 sit-ups' },
       { id: 'z2-score', type: 'score', name: 'Distances', presc: 'log it', note: 'Row meters / bike cal / treadmill miles' },
       cool] };
-    default: return { title: 'Active Recovery', c, ex: [
-      { id: 'walk', type: 'rounds', name: 'Easy incline walk', presc: '25 min', rounds: 1, note: 'Easy pace. Skip it entirely if you are beat.' },
-      { id: 'mobility', type: 'rounds', name: 'Mobility / foam roll', presc: '10 min', rounds: 1, note: 'Hips, T-spine, hamstrings, calves, chest' }] };
+    default: return { title: 'Rest Day', rest: true, c, ex: [
+      { id: 'walk', type: 'rounds', name: 'Optional: easy walk', presc: '20–30 min', rounds: 1, note: 'Recovery, not training. Walking outside counts. Skip it if you are beat.' },
+      { id: 'mobility', type: 'rounds', name: 'Optional: mobility / foam roll', presc: '10 min', rounds: 1, note: 'Hips, T-spine, hamstrings, calves, chest' }] };
   }
 }
 
@@ -292,10 +315,15 @@ function renderToday() {
   const w = workoutFor(curDate); const log = getLog(curDate); const c = w.c;
   let h = '';
   if (c.raw < 1) h += `<div class="banner">Your program starts <b>${fmtDate(data.settings.start)}</b>. Showing Week 1 for preview. Change the start date in Settings.</div>`;
-  if (c.raw === 1 && c.dow === 1 && !data.tests.start) h += `<div class="banner">Week 1: record your baseline tests in <b>Progress</b> (2k row, 2-min push-ups, weight, waist).</div>`;
-  if (c.raw === 12 && c.dow === 6 && !data.tests.end) h += `<div class="banner">Final week: record your end tests in <b>Progress</b> and compare.</div>`;
+  if (c.raw === 1 && !data.tests.start) h += `<div class="banner">Week 1: record your baseline tests in <b>Progress</b> (2k row, 2-min push-ups, weight, waist).</div>`;
+  if (c.raw === 12 && !data.tests.end) h += `<div class="banner">Final week: record your end tests in <b>Progress</b> and compare.</div>`;
   if (c.deload) h += `<div class="banner"><b>Deload week.</b> Fewer sets, ~10% lighter. Conditioning at ~80% effort. Recover so you can push again.</div>`;
-  h += `<div class="card"><h2>${esc(w.title)}</h2><div class="muted">Week ${c.week} · Phase ${c.phase} · 40 min</div>`;
+  const sched = schedule()[c.dow] || 'rest'; const cur = keyFor(curDate);
+  h += `<div class="card"><label class="f">Workout for this day<select id="wkSel">
+    <option value="">Scheduled: ${esc(WORKOUTS[sched])}</option>
+    ${Object.keys(WORKOUTS).filter(k => k !== sched).map(k => `<option value="${k}" ${log.workout === k ? 'selected' : ''}>Swap to: ${esc(WORKOUTS[k])}</option>`).join('')}
+    </select></label><div class="muted" style="margin-top:6px">Missed a day or the gym is packed? Swap in a different workout. Your logs are saved per day.</div></div>`;
+  h += `<div class="card"><h2>${esc(w.title)}</h2><div class="muted">Week ${c.week} · Phase ${c.phase}${w.rest ? ' · Recover so you can push next session' : ' · 40 min'}</div>`;
   for (const e of w.ex) {
     const le = log.ex[e.id] || {};
     const last = lastFor(e.id, curDate);
@@ -343,6 +371,9 @@ function renderToday() {
     if (+b.dataset.n === 1) b.textContent = e.rounds[i] ? '✓ Done' : 'Done';
   }));
   body.querySelectorAll('[data-timer]').forEach(b => b.addEventListener('click', () => { loadTimer(JSON.parse(b.dataset.timer)); show('timer'); }));
+  document.getElementById('wkSel').addEventListener('change', ev => {
+    const L = ensureLog(curDate); if (ev.target.value) L.workout = ev.target.value; else delete L.workout; save(); renderToday();
+  });
   document.getElementById('notes').addEventListener('input', ev => { ensureLog(curDate).notes = ev.target.value; save(); });
   document.getElementById('completeBtn').addEventListener('click', () => {
     const L = ensureLog(curDate); L.done = !L.done; save(); renderToday(); if (L.done) toast('Nice work 💪');
@@ -351,8 +382,7 @@ function renderToday() {
 
 function renderPlan() {
   const start = data.settings.start; const t = todayISO();
-  const names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const startDow = parse(start).getDay(); // used for labels
+  const SHORT = { lower: 'Legs', upper: 'Upper', intervals: 'Intvl', hinge: 'Hinge', metcon: 'Metcon', zone2: 'Zone 2', rest: 'Rest' };
   let h = `<div class="card"><h2>12-week calendar</h2><div class="muted">Tap a day to open it. Green = completed. Weeks 4 & 8 are deloads.</div></div>`;
   const phases = [[1, 'Phase 1 — Base', 'Squat/bench 4×8 · Row 1:00 on/1:00 off'], [5, 'Phase 2 — Build', 'Squat/bench 5×5 · Row 1:30 on/1:00 off'], [9, 'Phase 3 — Peak', 'Squat/bench 5×3 · Bike 0:30 all-out/0:45 easy']];
   for (const [w0, title, sub] of phases) {
@@ -363,20 +393,17 @@ function renderPlan() {
         const ds = addDays(start, (w - 1) * 7 + d);
         const L = data.logs[ds];
         const label = parse(ds).toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3);
-        h += `<div class="day ${L && L.done ? 'done' : ''} ${ds === t ? 'today' : ''}" data-go="${ds}">${label}<br>${fmtShort(ds)}</div>`;
+        const k = keyFor(ds);
+        h += `<div class="day ${L && L.done ? 'done' : ''} ${ds === t ? 'today' : ''} ${k === 'rest' ? 'restday' : ''}" data-go="${ds}">${label} ${fmtShort(ds)}<br><b>${SHORT[k]}</b></div>`;
       }
       h += `</div>`;
     }
     h += `</div>`;
   }
-  h += `<div class="card"><h3>Weekly layout</h3><table>
-    <tr><td>Mon</td><td>Lower-body strength + EMOM finisher</td></tr>
-    <tr><td>Tue</td><td>Intervals + core</td></tr>
-    <tr><td>Wed</td><td>Upper-body strength + AMRAP finisher</td></tr>
-    <tr><td>Thu</td><td>Metcon (A and B alternate)</td></tr>
-    <tr><td>Fri</td><td>Hinge + full body + EMOM finisher</td></tr>
-    <tr><td>Sat</td><td>Zone 2 engine + core</td></tr>
-    <tr><td>Sun</td><td>Active recovery</td></tr></table>
+  const sc = schedule();
+  h += `<div class="card"><h3>Your week (${Object.keys(sc).length} training days)</h3><table>
+    ${[1, 2, 3, 4, 5, 6, 0].map(d => `<tr><td>${DOW[d]}</td><td>${sc[d] ? esc(WORKOUTS[sc[d]]) : '<span class="muted">Rest (optional walk)</span>'}</td></tr>`).join('')}</table>
+    <p class="muted">Change your training days in Settings.</p>
     <p class="muted" style="margin-bottom:0">Progression: when every rep is done with 1–2 left in the tank, add 5 lb (upper) or 10 lb (lower). Raise your working numbers in Settings as you get stronger.</p></div>`;
   const v = document.getElementById('view-plan'); v.innerHTML = h;
   v.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => { curDate = el.dataset.go; show('today'); }));
@@ -468,6 +495,9 @@ function renderSettings() {
       <div class="grid3"><label class="f">Squat<input inputmode="numeric" id="sSquat" value="${S.squat}"></label>
       <label class="f">Bench<input inputmode="numeric" id="sBench" value="${S.bench}"></label>
       <label class="f">Deadlift<input inputmode="numeric" id="sDl" value="${S.deadlift}"></label></div>
+      <div class="f" style="margin-top:10px">Training days (pick 4 or 5)</div>
+      <div class="rounds" id="sDays">${[1, 2, 3, 4, 5, 6, 0].map(d => `<button class="chk ${S.days.includes(d) ? 'on' : ''}" data-dow="${d}">${DOW[d]}</button>`).join('')}</div>
+      <div class="muted" id="sDaysInfo" style="margin-top:6px"></div>
       <label class="f" style="margin-top:8px">Theme<select id="sTheme"><option value="auto">Match device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
     </div>
     <div class="card"><h3>Heart-rate zones (est. max ~173 bpm)</h3>
@@ -481,6 +511,19 @@ function renderSettings() {
     </div>
     <div class="card"><h3>Danger zone</h3><button id="resetBtn" style="width:100%">Erase all data</button></div>`;
   const num = (id, k) => document.getElementById(id).addEventListener('change', ev => { const n = parseFloat(ev.target.value); if (n > 0) { S[k] = n; save(); toast('Saved'); } });
+  const info = () => {
+    const sc = schedule(); const n = S.days.length;
+    document.getElementById('sDaysInfo').textContent = n < 3 ? 'Pick at least 3 days.' :
+      [1, 2, 3, 4, 5, 6, 0].filter(d => sc[d]).map(d => DOW[d] + ': ' + WORKOUTS[sc[d]]).join(' · ') + (n === 4 ? '. With 4 days, intervals are left out; the finishers cover conditioning.' : '');
+  };
+  info();
+  document.querySelectorAll('#sDays [data-dow]').forEach(b => b.addEventListener('click', () => {
+    const d = +b.dataset.dow; const on = S.days.includes(d);
+    if (on && S.days.length <= 3) return toast('Keep at least 3 days');
+    if (!on && S.days.length >= 6) return toast('Leave at least 1 rest day');
+    S.days = on ? S.days.filter(x => x !== d) : [...S.days, d];
+    b.classList.toggle('on', !on); save(); info();
+  }));
   num('sSquat', 'squat'); num('sBench', 'bench'); num('sDl', 'deadlift');
   document.getElementById('sStart').addEventListener('change', ev => { if (ev.target.value) { S.start = ev.target.value; save(); setPill(); toast('Start date saved'); } });
   const th = document.getElementById('sTheme'); th.value = S.theme;
